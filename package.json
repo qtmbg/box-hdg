@@ -1,0 +1,38 @@
+{
+  "name": "box-hdg",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "typecheck": "tsc --noEmit",
+    "polices": "python3 scripts/polices.py",
+    "verifier": "node tests/verification.mjs"
+  },
+  "dependencies": {
+    "next": "16.3.3",
+    "react": "19.2.0",
+    "react-dom": "19.2.0",
+    "resend": "6.24.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "4.3.3",
+    "@types/node": "24.10.1",
+    "@types/react": "19.2.2",
+    "@types/react-dom": "19.2.1",
+    "axe-core": "4.12.0",
+    "playwright": "1.62.1",
+    "tailwindcss": "4.3.3",
+    "typescript": "5.9.3"
+  },
+  "browserslist": [
+    "chrome >= 108",
+    "edge >= 108",
+    "firefox >= 115",
+    "safari >= 16.4",
+    "ios_saf >= 16.4",
+    "samsung >= 21",
+    "not dead"
+  ]
+}
