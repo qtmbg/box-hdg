@@ -7,8 +7,9 @@ décisions prises en cours de construction qui demandent une validation.
 
 ## 1. Bloquants
 
-Le site ne doit pas être ouvert au public tant que ces sept points ne sont pas
-traités. Chacun indique le fichier à modifier.
+Sept points. Six bloquent l'ouverture au public ; la relecture des CGV (1.4)
+doit être faite avant la première vente, pas avant la mise en ligne. Chacun
+indique le fichier à modifier.
 
 ### 1.1 Numéro de téléphone et email — `content/site.ts`
 
@@ -92,19 +93,33 @@ carré porte les initiales en Archivo : jamais d'image cassée en production.
 
 ## 2. Décisions à valider
 
-### 2.1 La mention de certification IA n'est pas publiée
+### 2.1 Les formations certifiées sont publiées
 
-Le brief mentionnait une ligne « consultant certifié Anthropic/OpenAI » pour
-Nizzar. Elle n'apparaît pas sur le site.
+Les vingt-trois attestations ont été fournies et vérifiées :
 
-En France, un titre professionnel invérifiable sur un site commercial relève
-des pratiques commerciales trompeuses (article L121-2 du code de la
-consommation). Et l'argument est faible face à un plombier : ce qui le rassure,
-c'est de savoir qui décroche le téléphone.
+- **Anthropic Academy, 20 attestations** — PDF nominatifs au nom de Nizzar Ben
+  Chekroune, de « Claude 101 » à « Teaching the AI Fluency Framework ».
+- **OpenAI Academy, 3 attestations** — « AI Foundations », « Applied AI
+  Foundations », « Agents and Workflows », délivrées le 14 juillet 2026,
+  chacune avec un identifiant public. Les trois adresses ont été ouvertes et
+  répondent 200 en affichant le nom et l'intitulé du cours.
 
-Si le certificat existe et qu'il est vérifiable, ajouter **une seule
-proposition** à `EQUIPE[0].ligne`, avec la référence. Sinon, laisser la ligne
-telle quelle.
+Le site les publie sur `/equipe` : une phrase dans la présentation de Nizzar,
+puis un bloc qui donne le nombre par organisme et déplie les vingt-trois
+intitulés, avec un lien de vérification sur les trois certificats OpenAI. Les
+vingt-trois figurent aussi en données structurées `hasCredential`, les trois
+vérifiables portant leur URL.
+
+**Le libellé dit « certificats de formation », pas « consultant certifié ».**
+Ce sont des attestations de suivi de cours, pas un titre professionnel
+accrédité. Écrire « certifié Anthropic » laisserait entendre une accréditation
+professionnelle qui n'existe pas, ce qui relèverait de l'article L121-2 du code
+de la consommation — alors que « vingt-trois certificats de formation délivrés
+par Anthropic Academy et OpenAI Academy » est exact, vérifiable, et dit la même
+chose en plus fort.
+
+Les vingt PDF Anthropic ne sont pas déposés dans le dépôt : ils sont
+nominatifs. Les tenir à disposition pour toute demande.
 
 ### 2.2 Aucune référence de l'ancien portfolio n'a été reprise
 
@@ -140,13 +155,21 @@ sont présentées sur le site comme « relevées auprès d'agences et de prestat
 français, 2026 » : il faut pouvoir produire la source si on la demande. À
 vérifier avant mise en ligne.
 
-### 2.6 L'apostrophe typographique remplace la quote droite
+### 2.6 Les intitulés de cours restent en anglais
+
+C'est la seule exception à la règle « pas d'anglais dans le site rendu ». Ces
+intitulés sont les désignations officielles des attestations : les traduire
+romprait le lien avec le document vérifiable. Ils sont confinés au bloc replié
+de `/equipe` et portés par un attribut `lang="en"`, donc correctement prononcés
+par un lecteur d'écran.
+
+### 2.7 L'apostrophe typographique remplace la quote droite
 
 `l'équipe` est rendu `l’équipe`. Le texte est identique au mot près ; seul le
 caractère d'apostrophe change, conformément à l'usage typographique français.
 Même logique pour les espaces insécables avant la ponctuation haute.
 
-### 2.7 L'entreprise du module avant / après est fictive
+### 2.8 L'entreprise du module avant / après est fictive
 
 « Menuiserie Delorme », à Vitrolles. Les deux cartes portent l'étiquette
 « Exemple », et la légende sous le module le répète. Aucune donnée client, aucune

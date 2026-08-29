@@ -211,6 +211,13 @@ Le lien a déjà disparu de la navigation et le teaser de l'accueil n'est pas
 rendu ; laisser une adresse accessible et vide serait la troisième version du
 même défaut. Le jour où les données arrivent, le drapeau passe à `true`.
 
+**Les formations certifiées sont publiées et vérifiables.** Vingt-trois
+attestations — vingt d'Anthropic Academy, trois d'OpenAI Academy — présentées
+par leur nombre, dépliables au détail, avec un lien de vérification sur les
+trois certificats OpenAI et une déclaration `hasCredential` en données
+structurées. Le libellé dit « certificats de formation », ce qu'ils sont, et
+non « consultant certifié », ce qu'ils ne sont pas.
+
 **Aucune carte fantôme sur la page équipe.** La grille se réduit au nombre de
 membres actifs. Une photo manquante sur une personne réelle tombe sur ses
 initiales, en Archivo, dans le même carré — ce qui n'a rien à voir avec les

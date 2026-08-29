@@ -62,6 +62,5 @@ export const ENTREES_MANQUANTES = [
   "Données réalisations : clients, secteurs, villes, captures, URL, délais",
   "Mouncef : nom, rôle, phrase de présentation, photo",
   "Photo de Nizzar",
-  "Confirmation ou retrait de la mention de certification IA",
   "Fichier de logo, ou validation du logotype BOX-HDG en Archivo",
 ] as const;

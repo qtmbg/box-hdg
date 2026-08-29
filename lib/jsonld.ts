@@ -2,6 +2,7 @@ import { ORIGINE, SITE } from "@/content/site";
 import { IDENTITE, LEGAL_COMPLET } from "@/content/legal";
 import { PRICING } from "@/content/pricing";
 import { TARIFS } from "@/content/tarifs";
+import { CERTIFICATIONS, EQUIPE } from "@/content/equipe";
 
 export function organisation() {
   return {
@@ -97,5 +98,43 @@ export function filDAriane(elements: { nom: string; chemin: string }[]) {
       name: e.nom,
       item: `${ORIGINE}${e.chemin}`,
     })),
+  };
+}
+
+/**
+ * §13 — Fiche Person pour la page équipe.
+ *
+ * `hasCredential` porte les attestations : celles qui ont une adresse publique
+ * la déclarent, les autres sont décrites sans lien. On n'annonce jamais une
+ * vérification qu'on ne peut pas fournir.
+ */
+export function personne() {
+  const membre = EQUIPE.find((m) => m.actif && m.nom);
+  if (!membre) return {};
+
+  const diplomes = CERTIFICATIONS.organismes.flatMap((organisme) =>
+    organisme.cours.map((cours) => {
+      const verification = organisme.verifications?.find(
+        (v) => v.titre === cours,
+      );
+      return {
+        "@type": "EducationalOccupationalCredential",
+        name: cours,
+        credentialCategory: "Certificate of completion",
+        recognizedBy: { "@type": "Organization", name: organisme.nom },
+        ...(verification ? { url: verification.url } : {}),
+      };
+    }),
+  );
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: membre.nom,
+    jobTitle: membre.role,
+    description: membre.ligne,
+    worksFor: { "@id": `${ORIGINE}/#organisation` },
+    url: `${ORIGINE}/equipe`,
+    hasCredential: diplomes,
   };
 }

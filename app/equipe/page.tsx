@@ -3,6 +3,9 @@ import { PAGE_EQUIPE } from "@/content/equipe";
 import { Section, TitreSection } from "@/components/Section";
 import { Fil } from "@/components/Fil";
 import { GrilleEquipe } from "@/components/GrilleEquipe";
+import { Certifications } from "@/components/Certifications";
+import { JsonLd } from "@/components/JsonLd";
+import { personne } from "@/lib/jsonld";
 import { AppelFinal } from "@/components/AppelFinal";
 import { BarreAppelMobile } from "@/components/BarreAppelMobile";
 
@@ -25,10 +28,12 @@ export default function PageEquipe() {
           chapo={PAGE_EQUIPE.chapo}
         />
         <GrilleEquipe />
+        <Certifications />
       </Section>
 
       <AppelFinal />
       <BarreAppelMobile />
+      <JsonLd data={personne()} />
     </>
   );
 }
