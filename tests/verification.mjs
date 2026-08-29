@@ -295,15 +295,37 @@ titre("Drapeaux de fonctionnalité et indexation (§9, §12, §13)");
     (await page.locator('header nav a[href="/realisations"]').count()) === (active ? 1 : 0),
   );
 
-  const sitemap = await (await page.goto(BASE + "/sitemap.xml")).text();
-  verifier("sitemap : /tarifs présent", sitemap.includes("/tarifs"));
-  verifier(
-    "sitemap : /realisations aligné sur le drapeau",
-    sitemap.includes("/realisations") === active,
-  );
-
+  /*
+   * L'indexation est un drapeau, comme les réalisations : elle est fermée tant
+   * que l'identité légale manque ou que l'adresse est une adresse de recette
+   * (*.vercel.app). On ne vérifie donc pas « le site est indexable », on
+   * vérifie que les trois signaux disent la même chose.
+   */
   const robots = await (await page.goto(BASE + "/robots.txt")).text();
-  verifier("robots : sitemap déclaré", robots.includes("sitemap.xml"));
+  const sitemap = await (await page.goto(BASE + "/sitemap.xml")).text();
+  await page.goto(BASE + "/");
+  const metaRobots =
+    (await page
+      .locator('meta[name="robots"]')
+      .getAttribute("content")
+      .catch(() => null)) || "";
+
+  const ouvert = !/Disallow:\s*\/\s*$/m.test(robots.trim());
+
+  if (ouvert) {
+    verifier("indexation ouverte : sitemap peuplé", sitemap.includes("/tarifs"));
+    verifier("indexation ouverte : sitemap déclaré", robots.includes("sitemap.xml"));
+    verifier("indexation ouverte : pages indexables", !metaRobots.includes("noindex"));
+    verifier(
+      "sitemap : /realisations aligné sur le drapeau",
+      sitemap.includes("/realisations") === active,
+    );
+  } else {
+    verifier("indexation fermée : sitemap vide", !sitemap.includes("<loc>"));
+    verifier("indexation fermée : robots interdit tout", /Disallow:\s*\//.test(robots));
+    verifier("indexation fermée : pages en noindex", metaRobots.includes("noindex"));
+    verifier("indexation fermée : cohérent avec l'absence de sitemap", !robots.includes("sitemap.xml"));
+  }
 
   for (const chemin of ["/", "/tarifs", "/offres/creation-site-internet", "/contact", "/equipe"]) {
     await page.goto(BASE + chemin);

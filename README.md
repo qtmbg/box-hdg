@@ -20,7 +20,7 @@ npm run dev          # http://localhost:3000
 
 ```bash
 npm run build && npm start   # production locale
-npm run verifier             # 95 vérifications sur le serveur local
+npm run verifier             # 96 vérifications, local ou URL en argument
 npm run typecheck
 ```
 
@@ -226,6 +226,15 @@ silhouettes grises que la page existe précisément pour éviter.
 ---
 
 ## Déploiement
+
+Production Vercel, ouverte sans authentification :
+**https://box-hdg.vercel.app**
+
+Le site n'y est pas indexable : le drapeau `INDEXABLE` de `content/site.ts`
+exige que l'identité légale soit renseignée *et* que l'adresse ne soit pas une
+adresse `.vercel.app`. Tant qu'une des deux manque, `robots.txt` interdit tout,
+le sitemap est vide et les pages partent en `noindex`. Une recette indexée
+deviendrait un doublon qui concurrencerait le vrai domaine.
 
 GitHub → Vercel. Toutes les routes sont prérendues statiquement ; seule l'action
 serveur du formulaire s'exécute à la demande. Renseigner `RESEND_API_KEY`,

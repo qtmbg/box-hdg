@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
-import { ORIGINE, SITE } from "@/content/site";
+import { INDEXABLE, ORIGINE, SITE } from "@/content/site";
 import { UI } from "@/content/commun";
 import { EnTete } from "@/components/EnTete";
 import { PiedDePage } from "@/components/PiedDePage";
@@ -25,7 +25,9 @@ export const metadata: Metadata = {
     url: ORIGINE,
   },
   twitter: { card: "summary_large_image" },
-  robots: { index: true, follow: true },
+  robots: INDEXABLE
+    ? { index: true, follow: true }
+    : { index: false, follow: false, nocache: true },
 };
 
 export const viewport: Viewport = {

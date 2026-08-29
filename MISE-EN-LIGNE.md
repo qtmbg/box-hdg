@@ -212,12 +212,49 @@ avant d'aller plus loin, si le budget est ferme.
 
 ---
 
-## 4. Vérification avant ouverture
+## 4. Déploiement de recette
+
+Le site tourne en production Vercel, ouvert sans authentification :
+
+**https://box-hdg.vercel.app**
+
+Il n'est pas indexable, et c'est voulu. Le drapeau `INDEXABLE`
+(`content/site.ts`) exige deux conditions, et les deux sont fausses
+aujourd'hui :
+
+1. `LEGAL_COMPLET` doit être à `true` — présenter au public un site commercial
+   sans mentions légales complètes n'est pas défendable ;
+2. l'adresse ne doit pas se terminer par `.vercel.app` — sinon Google garderait
+   une copie qui viendrait concurrencer le vrai domaine le jour de son
+   ouverture.
+
+Tant que le drapeau est baissé : `robots.txt` interdit tout, le sitemap est
+vide, et chaque page part en `noindex, nofollow, nocache`. Le lien reste
+partageable à qui de droit, il ne se retrouve simplement pas dans les
+résultats de recherche.
+
+**Pour ouvrir l'indexation, le jour du vrai domaine :**
+
+1. renseigner l'identité légale et passer `LEGAL_COMPLET` à `true` ;
+2. pointer `NEXT_PUBLIC_SITE_URL` sur le domaine définitif dans les variables
+   d'environnement Vercel ;
+3. redéployer, puis vérifier que `robots.txt` ne contient plus `Disallow: /` et
+   que le sitemap est peuplé. `npm run verifier <url>` contrôle les deux sens.
+
+⚠️ Le formulaire de contact renvoie une erreur technique sur ce déploiement :
+`RESEND_API_KEY` et `CONTACT_FROM_EMAIL` ne sont pas renseignés. C'est le
+comportement voulu — il vaut mieux dire à un prospect que l'envoi a échoué que
+de perdre sa demande en silence. Renseigner les deux variables sur Vercel pour
+activer l'envoi.
+
+## 5. Vérification avant ouverture
 
 ```bash
 npm run typecheck
 npm run build && npm start
-npm run verifier                 # 95 vérifications, 0 échec attendu
+npm run verifier                            # local
+npm run verifier https://box-hdg.vercel.app # production
+# 96 vérifications, 0 échec attendu
 npx lighthouse http://localhost:3000 --form-factor=mobile --only-categories=performance,accessibility,best-practices,seo
 ```
 

@@ -1,4 +1,5 @@
 import { fr } from "@/lib/fr";
+import { LEGAL_COMPLET } from "./legal";
 
 /**
  * Identité et coordonnées.
@@ -35,9 +36,28 @@ export const SITE = fr({
   horairesCourts: "Lun – ven, 9 h – 18 h",
 });
 
+
 /** PROVISOIRE — §15.2. Sans slash final. */
 export const ORIGINE =
   process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") || "https://www.box-hdg.fr";
+
+/**
+ * Le site n'est indexable qu'à deux conditions.
+ *
+ * L'identité légale doit être renseignée : présenter au public un site
+ * commercial sans mentions légales complètes n'est pas défendable, et Google
+ * n'a pas à en garder une copie.
+ *
+ * Et l'adresse ne doit pas être une adresse de recette. Un déploiement
+ * *.vercel.app sert à faire relire le site avant l'achat du domaine ; s'il est
+ * indexé, il devient un doublon qui concurrencera le vrai domaine le jour où
+ * celui-ci sera mis en ligne.
+ *
+ * Quand ce drapeau est baissé : robots.txt interdit tout, chaque page passe en
+ * noindex, et le sitemap est vide.
+ */
+export const INDEXABLE =
+  LEGAL_COMPLET && !/\.vercel\.app$/i.test(new URL(ORIGINE).hostname);
 
 /**
  * §9 — Drapeau de fonctionnalité. Tant qu'il est à false :

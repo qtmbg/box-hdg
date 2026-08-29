@@ -9,3 +9,4 @@ next-env.d.ts
 # Fichiers variables complets, réaspirés par `npm run polices` s'ils manquent.
 # Ce sont les sous-ensembles de public/fonts/ qui sont servis, et versionnés.
 assets/polices-sources/
+.vercel
