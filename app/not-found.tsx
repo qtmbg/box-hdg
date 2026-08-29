@@ -1,18 +1,18 @@
-import { Section } from "@/components/Section";
+import { Page } from "@/components/Page";
+import { Bloc } from "@/components/Bloc";
+import { BoutonLien, BoutonAppel } from "@/components/Bouton";
 import { ACTIONS, PAGE_404 } from "@/content/commun";
-import { BoutonLien } from "@/components/Bouton";
-import { BoutonAppel } from "@/components/BoutonAppel";
 
 export default function Introuvable() {
   return (
-    <Section filet={false}>
-      <p className="sourcil">{PAGE_404.sourcil}</p>
-      <h1 className="titre-1 mt-5 max-w-[30rem]">{PAGE_404.titre}</h1>
-      <p className="chapo mt-6">{PAGE_404.texte}</p>
-      <div className="mt-8 flex flex-wrap gap-3">
-        <BoutonLien href="/tarifs">{ACTIONS.voirLesTarifs}</BoutonLien>
-        <BoutonAppel variante="secondaire" />
-      </div>
-    </Section>
+    <Page titre={PAGE_404.titre} chapo={PAGE_404.sourcil}>
+      <Bloc apparition={false}>
+        <p className="chapo mesure-large">{PAGE_404.texte}</p>
+        <div className="mt-7 flex flex-wrap gap-2.5">
+          <BoutonLien href="/tarifs">{ACTIONS.voirLesTarifs}</BoutonLien>
+          <BoutonAppel style="trait" />
+        </div>
+      </Bloc>
+    </Page>
   );
 }

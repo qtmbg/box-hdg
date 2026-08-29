@@ -1,72 +1,77 @@
 @import "tailwindcss";
 
 /* ==========================================================================
-   BOX-HDG — SYSTÈME DE DESIGN
-   Direction : « ennuyeux, clair, simple, rapide » exécuté avec précision.
-   Un seul accent. Un seul ornement structurel : le filet de 1 px.
+   BOX-HDG
+
+   Le site est une surface de blocs. Chaque bloc porte une couleur pleine, un
+   grand rayon, et rien d'autre : pas de bordure, pas d'ombre, pas de filet.
+   C'est la couleur qui sépare, et l'espace de dix pixels entre les blocs qui
+   fait respirer.
+
+   Sur grand écran, une colonne d'identité reste fixe à gauche pendant que le
+   contenu défile à droite. Elle porte le logotype, le titre de la page, une
+   phrase, et le bouton d'appel. Le numéro reste donc visible en permanence,
+   sans barre collante en haut de l'écran.
+
+   Newsreader compose les titres et les chapôs, Schibsted Grotesk tout le
+   reste. Le contraste entre la plume du serif et la netteté du grotesque
+   remplace tout l'appareil de règles et de cadres.
    ========================================================================== */
 
 @font-face {
-  font-family: "Archivo";
-  src: url("/fonts/archivo-fr.woff2") format("woff2-variations");
-  font-weight: 600 700;
+  font-family: "Newsreader";
+  src: url("/fonts/newsreader-fr.woff2") format("woff2-variations");
+  font-weight: 320 420;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: "Inter";
-  src: url("/fonts/inter-fr.woff2") format("woff2-variations");
-  font-weight: 400 600;
+  font-family: "Schibsted";
+  src: url("/fonts/schibsted-fr.woff2") format("woff2-variations");
+  font-weight: 400 620;
   font-style: normal;
   font-display: swap;
 }
 
 @theme {
-  /* Palette --------------------------------------------------------------- */
-  --color-encre: #14202e;
-  --color-papier: #ffffff;
-  --color-gris: #5b6b7c;
-  --color-filet: #e3e7eb;
-  --color-ambre: #e8930c;
-  --color-fond: #f7f8f9;
+  /* Palette ---------------------------------------------------------------
+     Les rapports notés sont mesurés, pas estimés. */
+  --color-craie: #f4efe4;   /* fond de page, papier chaud */
+  --color-papier: #ffffff;  /* blocs clairs */
+  --color-ardoise: #13322d; /* encre. 12,0:1 sur craie, 13,8:1 sur blanc */
+  --color-sauge: #4a605a;   /* texte secondaire. 5,9:1 sur craie */
+  --color-brique: #c0431c;  /* accent. 4,5:1 sur craie, 5,2:1 en blanc dessus */
+  --color-ocre: #eea749;    /* bloc chaud. ardoise dessus : 6,7:1 */
+  --color-argile: #e8c2ab;  /* bloc doux. ardoise dessus : 8,4:1 */
+  --color-sable: #eae1d0;   /* bloc secondaire. ardoise dessus : 10,6:1 */
 
-  /* Variantes dérivées, strictement fonctionnelles.
-     ambre-texte : l'ambre pur plafonne à 2,44:1 sur blanc. Cette déclinaison
-     assombrie tient 5,2:1 et sert partout où l'accent doit être lu comme texte.
-     filet-fort  : filet assombri, réservé aux barres du module de comparaison. */
-  --color-ambre-texte: #a05c00;
-  --color-ambre-sourd: #fdf3e2;
-  --color-filet-fort: #c6cfd8;
-  --color-filet-clair: #eef1f3;
-
-  /* Module de comparaison. `barre` tient 3,4:1 sur le fond gris, seuil des
-     éléments graphiques non textuels ; `rail` n'a qu'à montrer l'échelle. */
-  --color-barre: #7b8896;
-  --color-rail: #e7ebee;
+  /* Teintes de service, jamais employées comme fond de texte long. */
+  --color-craie-creuse: #e6dece;
+  --color-ardoise-voile: #2b463f;
 
   /* Typographie ----------------------------------------------------------- */
-  --font-display: "Archivo", "Helvetica Neue", Arial, sans-serif;
-  --font-sans: "Inter", "Helvetica Neue", Arial, sans-serif;
+  --font-titre: "Newsreader", Georgia, "Times New Roman", serif;
+  --font-texte: "Schibsted", "Helvetica Neue", Arial, sans-serif;
 
-  --text-xs: 0.8125rem;   /* 13 */
-  --text-sm: 0.875rem;    /* 14 */
-  --text-base: 1rem;      /* 16 */
-  --text-lg: 1.0625rem;   /* 17 — corps mobile */
-  --text-xl: 1.125rem;    /* 18 — corps desktop */
-  --text-2xl: 1.375rem;   /* 22 */
-  --text-3xl: 1.75rem;    /* 28 */
-  --text-4xl: 2.25rem;    /* 36 */
-  --text-5xl: 3rem;       /* 48 */
+  --text-micro: 0.75rem;    /* 12, étiquettes capitales */
+  --text-menu: 0.875rem;    /* 14 */
+  --text-corps: 1rem;       /* 16 */
+  --text-corps-l: 1.0625rem;/* 17 */
+  --text-chapo: 1.375rem;   /* 22 */
+  --text-chapo-l: 1.625rem; /* 26 */
+  --text-titre: 1.75rem;    /* 28 */
+  --text-titre-l: 2.125rem; /* 34 */
+  --text-geant: 2.5rem;     /* 40 */
+  --text-geant-l: 3.5rem;   /* 56 */
 
-  /* Grille ---------------------------------------------------------------- */
-  --spacing-contenu: 70rem; /* 1120 px */
-  --radius-box: 4px;
+  /* Surface --------------------------------------------------------------- */
+  --marge: 0.625rem;        /* 10 px, marge de canevas et écart entre blocs */
+  --rayon: 1.125rem;        /* 18 px */
+  --rayon-petit: 0.75rem;   /* 12 px, éléments internes */
+  --rail: 21rem;            /* largeur de la colonne d'identité */
 
-  --shadow-carte: 0 1px 2px rgb(20 32 46 / 0.06);
-
-  /* Mouvement ------------------------------------------------------------- */
-  --ease-sortie: cubic-bezier(0.16, 0.84, 0.44, 1);
+  --sortie: cubic-bezier(0.2, 0.7, 0.3, 1);
 }
 
 /* ==========================================================================
@@ -82,35 +87,32 @@
 
   :root {
     color-scheme: light;
-    -webkit-tap-highlight-color: rgb(232 147 12 / 0.18);
+    -webkit-tap-highlight-color: rgb(192 67 28 / 0.16);
   }
 
   html {
     scroll-behavior: smooth;
-    /* La barre d'appel fixe ne doit jamais masquer une ancre. */
-    scroll-padding-top: 5.5rem;
+    scroll-padding-top: var(--marge);
     text-size-adjust: 100%;
+    background-color: var(--color-craie);
   }
 
   body {
     margin: 0;
-    background-color: var(--color-papier);
-    color: var(--color-encre);
-    font-family: var(--font-sans);
-    font-size: var(--text-lg);
-    line-height: 1.6;
+    background-color: var(--color-craie);
+    color: var(--color-ardoise);
+    font-family: var(--font-texte);
+    font-size: var(--text-corps);
+    line-height: 1.55;
     font-weight: 400;
     font-synthesis-weight: none;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    font-feature-settings: "cv05" 1, "cv11" 1;
-    /* Dégagement pour la barre d'appel mobile fixe. */
-    padding-bottom: env(safe-area-inset-bottom);
   }
 
   @media (min-width: 48rem) {
     body {
-      font-size: var(--text-xl);
+      font-size: var(--text-corps-l);
     }
   }
 
@@ -118,10 +120,10 @@
   h2,
   h3,
   h4 {
-    font-family: var(--font-display);
-    font-weight: 700;
-    letter-spacing: -0.02em;
-    line-height: 1.15;
+    font-family: var(--font-titre);
+    font-weight: 400;
+    letter-spacing: -0.012em;
+    line-height: 1.12;
     margin: 0;
     text-wrap: balance;
   }
@@ -134,7 +136,7 @@
   a {
     color: inherit;
     text-decoration-thickness: 1px;
-    text-underline-offset: 0.2em;
+    text-underline-offset: 0.22em;
   }
 
   ul,
@@ -158,8 +160,8 @@
     max-width: 100%;
   }
 
-  /* Chiffres : toujours tabulaires. Un prix qui saute d'un pixel à l'autre
-     quand on bascule d'un mode de paiement à l'autre est un défaut visible. */
+  /* Les chiffres s'alignent en colonne, toujours. Un prix qui saute d'un
+     demi-pixel quand on change de mode de paiement se voit. */
   .chiffre,
   th,
   td,
@@ -170,277 +172,409 @@
   }
 
   ::selection {
-    background: var(--color-ambre);
-    color: var(--color-encre);
+    background: var(--color-brique);
+    color: var(--color-papier);
   }
 
-  /* Anneau de focus : ambre doublé d'un filet encre. L'ambre seul plafonne à
-     2,44:1 sur blanc, en dessous du seuil de 3:1 des composants non textuels. */
+  /* Anneau de focus : brique sur un liseré clair, lisible sur les sept fonds
+     de la palette. */
   :focus-visible {
-    outline: 2px solid var(--color-ambre);
+    outline: 2px solid var(--color-brique);
     outline-offset: 2px;
-    border-radius: 2px;
-    box-shadow: 0 0 0 4px rgb(20 32 46 / 0.9);
+    border-radius: 4px;
+    box-shadow: 0 0 0 4px rgb(255 255 255 / 0.95);
   }
 
-  .sur-encre :focus-visible,
-  .sur-ambre :focus-visible {
-    box-shadow: 0 0 0 4px rgb(255 255 255 / 0.9);
+  .sur-ardoise :focus-visible,
+  .sur-brique :focus-visible {
+    outline-color: var(--color-papier);
+    box-shadow: 0 0 0 4px rgb(19 50 45 / 0.9);
   }
 }
 
 /* ==========================================================================
-   COMPOSANTS
+   CANEVAS ET BLOCS
    ========================================================================== */
 
 @layer components {
-  /* -- Structure ---------------------------------------------------------- */
-
-  .contenu {
-    width: 100%;
-    max-width: var(--spacing-contenu);
-    margin-inline: auto;
-    padding-inline: 1.25rem;
+  .canevas {
+    display: grid;
+    /* minmax(0, 1fr) et non « auto » : une colonne de grille automatique prend
+       pour minimum le min-content de son contenu, et un bouton en une seule
+       ligne suffit alors à élargir la page au-delà de la fenêtre. */
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--marge);
+    padding: var(--marge);
+    align-items: start;
   }
 
-  @media (min-width: 48rem) {
-    .contenu {
-      padding-inline: 2rem;
+  @media (min-width: 68.75rem) {
+    .canevas {
+      grid-template-columns: var(--rail) minmax(0, 1fr);
     }
   }
 
-  .section {
-    padding-block: 3.5rem; /* 56 */
+  /* -- La colonne d'identité ---------------------------------------------- */
+
+  .rail {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 1.5rem;
+    border-radius: var(--rayon);
+    background-color: var(--color-ocre);
+    color: var(--color-ardoise);
   }
 
-  @media (min-width: 48rem) {
-    .section {
-      padding-block: 5rem; /* 80 */
+  @media (min-width: 68.75rem) {
+    .rail {
+      position: sticky;
+      top: var(--marge);
+      min-height: calc(100vh - var(--marge) * 2);
+      padding: 1.75rem;
     }
   }
 
-  .filet-haut {
-    border-top: 1px solid var(--color-filet);
+  .rail-corps {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
   }
 
-  .sur-encre {
-    background-color: var(--color-encre);
+  @media (min-width: 68.75rem) {
+    .rail-corps {
+      margin-top: 3.5rem;
+    }
+  }
+
+  .rail-pied {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.625rem;
+  }
+
+  @media (min-width: 68.75rem) {
+    .rail-pied {
+      margin-top: auto;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+
+  /* -- Le bloc, unité de base --------------------------------------------- */
+
+  .bloc {
+    border-radius: var(--rayon);
+    padding: 1.5rem;
+    background-color: var(--color-papier);
+    color: var(--color-ardoise);
+  }
+
+  @media (min-width: 48rem) {
+    .bloc {
+      padding: 2.25rem;
+    }
+  }
+
+  @media (min-width: 90rem) {
+    .bloc {
+      padding: 2.75rem;
+    }
+  }
+
+  .bloc-craie   { background-color: var(--color-craie); }
+  .bloc-sable   { background-color: var(--color-sable); }
+  .bloc-argile  { background-color: var(--color-argile); }
+  .bloc-ocre    { background-color: var(--color-ocre); }
+
+  .bloc-ardoise {
+    background-color: var(--color-ardoise);
+    color: var(--color-craie);
+  }
+
+  .bloc-brique {
+    background-color: var(--color-brique);
     color: var(--color-papier);
   }
 
-  .sur-encre .secondaire {
-    color: rgb(255 255 255 / 0.66);
+  /* Les blocs s'empilent avec le même écart que le canevas. */
+  .pile {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--marge);
   }
 
-  .secondaire {
-    color: var(--color-gris);
+  .paire {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--marge);
   }
 
-  /* -- Typographie -------------------------------------------------------- */
-
-  .sourcil {
-    font-size: var(--text-sm);
-    font-weight: 500;
-    letter-spacing: 0.09em;
-    text-transform: uppercase;
-    color: var(--color-gris);
-  }
-
-  .titre-1 {
-    font-size: var(--text-4xl);
-  }
   @media (min-width: 48rem) {
-    .titre-1 {
-      font-size: var(--text-5xl);
+    .paire {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
   }
 
-  .titre-2 {
-    font-size: var(--text-3xl);
-    letter-spacing: -0.022em;
+  .trio {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--marge);
   }
+
   @media (min-width: 48rem) {
-    .titre-2 {
-      font-size: var(--text-4xl);
+    .trio {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
     }
   }
 
-  .titre-3 {
-    font-size: var(--text-2xl);
-    font-weight: 600;
+  /* ------------------------------------------------------------------------
+     TYPOGRAPHIE
+     ---------------------------------------------------------------------- */
+
+  .geant {
+    font-family: var(--font-titre);
+    font-weight: 340;
+    font-size: var(--text-geant);
+    line-height: 1.05;
     letter-spacing: -0.018em;
   }
 
+  @media (min-width: 48rem) {
+    .geant {
+      font-size: var(--text-geant-l);
+    }
+  }
+
+  .titre {
+    font-family: var(--font-titre);
+    font-weight: 380;
+    font-size: var(--text-titre);
+    line-height: 1.14;
+    letter-spacing: -0.014em;
+  }
+
+  @media (min-width: 48rem) {
+    .titre {
+      font-size: var(--text-titre-l);
+    }
+  }
+
+  .sous-titre {
+    font-family: var(--font-titre);
+    font-weight: 400;
+    font-size: var(--text-chapo);
+    line-height: 1.24;
+    letter-spacing: -0.008em;
+  }
+
   .chapo {
-    font-size: var(--text-2xl);
-    line-height: 1.45;
-    color: var(--color-gris);
-    max-width: 38.75rem; /* 620 px */
+    font-family: var(--font-titre);
+    font-weight: 400;
+    font-size: var(--text-chapo);
+    line-height: 1.36;
+  }
+
+  @media (min-width: 48rem) {
+    .chapo {
+      font-size: var(--text-chapo-l);
+    }
+  }
+
+  .etiquette {
+    font-family: var(--font-texte);
+    font-size: var(--text-micro);
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .menu {
+    font-size: var(--text-menu);
+  }
+
+  .discret {
+    color: var(--color-sauge);
+  }
+
+  .bloc-ardoise .discret,
+  .bloc-brique .discret,
+  .sur-ardoise .discret {
+    color: rgb(244 239 228 / 0.72);
   }
 
   .mesure {
-    max-width: 42rem;
+    max-width: 34rem;
   }
 
-  /* -- Boutons ------------------------------------------------------------ */
+  .mesure-large {
+    max-width: 44rem;
+  }
 
-  .bouton {
+  /* ------------------------------------------------------------------------
+     BOUTONS
+     ---------------------------------------------------------------------- */
+
+  .pilule {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
-    min-height: 2.75rem; /* 44 px */
-    padding: 0.6875rem 1.25rem;
-    border-radius: var(--radius-box);
+    min-height: 2.875rem;
+    padding: 0.6875rem 1.375rem;
+    border-radius: 999px;
     border: 1px solid transparent;
-    font-size: var(--text-base);
-    font-weight: 600;
-    line-height: 1.2;
-    letter-spacing: -0.005em;
-    text-decoration: none;
-    cursor: pointer;
-    transition: background-color 140ms var(--ease-sortie),
-      border-color 140ms var(--ease-sortie), color 140ms var(--ease-sortie);
-  }
-
-  /* Texte encre sur ambre : 6,75:1. Le blanc sur ambre tomberait à 2,44:1. */
-  .bouton-principal {
-    background-color: var(--color-ambre);
-    color: var(--color-encre);
-  }
-  .bouton-principal:hover {
-    background-color: #d18209;
-  }
-
-  .bouton-secondaire {
-    background-color: transparent;
-    border-color: var(--color-encre);
-    color: var(--color-encre);
-  }
-  .bouton-secondaire:hover {
-    background-color: var(--color-encre);
-    color: var(--color-papier);
-  }
-
-  .sur-encre .bouton-secondaire {
-    border-color: rgb(255 255 255 / 0.42);
-    color: var(--color-papier);
-  }
-  .sur-encre .bouton-secondaire:hover {
-    background-color: var(--color-papier);
-    color: var(--color-encre);
-  }
-
-  /* -- Cartes ------------------------------------------------------------- */
-
-  .carte {
-    background-color: var(--color-papier);
-    border: 1px solid var(--color-filet);
-    border-radius: var(--radius-box);
-    box-shadow: var(--shadow-carte);
-  }
-
-  .encadre {
-    border: 1px solid var(--color-filet);
-    border-radius: var(--radius-box);
-    background-color: var(--color-papier);
-    padding: 1.5rem;
-  }
-
-  @media (min-width: 48rem) {
-    .encadre {
-      padding: 2rem;
-    }
-  }
-
-  /* -- Liens ---------------------------------------------------------------
-     Le soulignement est porté par un filet ambre : lisible, et l'accent n'a
-     jamais à servir de couleur de texte.
-
-     `.lien` est réservé aux liens d'action isolés — fin de carte, coordonnée,
-     renvoi vers une autre page. D'où le bloc en ligne et la marge verticale :
-     la cible atteint 27 px de haut, au-dessus du plancher de 24 px du critère
-     2.5.8. Pour un lien au milieu d'une phrase, garder un <a> simple, dont
-     l'interligne contraint légitimement la hauteur. */
-  .lien {
-    display: inline-block;
-    color: var(--color-encre);
+    font-family: var(--font-texte);
+    font-size: var(--text-corps);
     font-weight: 500;
+    line-height: 1.2;
     text-decoration: none;
-    border-bottom: 1px solid var(--color-ambre);
-    padding-block: 0.1875rem;
-    transition: background-color 140ms var(--ease-sortie);
-  }
-  .lien:hover {
-    background-color: var(--color-ambre-sourd);
-  }
-  .sur-encre .lien {
-    color: var(--color-papier);
-  }
-  .sur-encre .lien:hover {
-    background-color: rgb(232 147 12 / 0.2);
+    white-space: nowrap;
+    cursor: pointer;
+    transition: background-color 160ms var(--sortie),
+      color 160ms var(--sortie), border-color 160ms var(--sortie);
   }
 
-  /* -- Liste à coches ------------------------------------------------------
-     La coche est dessinée en CSS : pas d'icône, pas de requête réseau. */
-  .liste-coche > li {
+  .pilule-pleine {
+    background-color: var(--color-brique);
+    color: var(--color-papier);
+  }
+  .pilule-pleine:hover {
+    background-color: #a5391709;
+    background-color: #a53917;
+  }
+
+  .pilule-trait {
+    background-color: transparent;
+    border-color: currentColor;
+    color: inherit;
+  }
+  .pilule-trait:hover {
+    background-color: var(--color-ardoise);
+    color: var(--color-craie);
+    border-color: var(--color-ardoise);
+  }
+
+  .bloc-ardoise .pilule-trait:hover,
+  .sur-ardoise .pilule-trait:hover {
+    background-color: var(--color-craie);
+    color: var(--color-ardoise);
+    border-color: var(--color-craie);
+  }
+
+  .pilule-encre {
+    background-color: var(--color-ardoise);
+    color: var(--color-craie);
+  }
+  .pilule-encre:hover {
+    background-color: #0c211e;
+  }
+
+  /* ------------------------------------------------------------------------
+     LISTES
+     ---------------------------------------------------------------------- */
+
+  .liste-points > li {
     position: relative;
-    padding-left: 1.75rem;
+    padding-left: 1.375rem;
     padding-block: 0.4375rem;
-    font-size: var(--text-base);
     line-height: 1.5;
   }
 
-  .liste-coche > li::before {
+  .liste-points > li::before {
     content: "";
     position: absolute;
-    left: 0.125rem;
-    top: 0.8125rem;
-    width: 0.6875rem;
-    height: 0.375rem;
-    border-left: 2px solid var(--color-ambre);
-    border-bottom: 2px solid var(--color-ambre);
-    transform: rotate(-45deg);
+    left: 0;
+    top: 0.9375rem;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 999px;
+    background-color: var(--color-brique);
   }
 
-  /* -- Filet de séparation dans une liste --------------------------------- */
-  .liste-filets > li + li {
-    border-top: 1px solid var(--color-filet);
+  .bloc-ardoise .liste-points > li::before,
+  .bloc-brique .liste-points > li::before {
+    background-color: var(--color-ocre);
   }
 
-  /* -- Étiquette ---------------------------------------------------------- */
-  .etiquette {
-    display: inline-block;
-    font-size: var(--text-xs);
+  .liste-separee > li + li {
+    border-top: 1px solid rgb(19 50 45 / 0.12);
+  }
+
+  .bloc-ardoise .liste-separee > li + li {
+    border-top-color: rgb(244 239 228 / 0.16);
+  }
+
+  /* ------------------------------------------------------------------------
+     JETON, pour les mentions courtes posées dans un bloc
+     ---------------------------------------------------------------------- */
+
+  .jeton {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0.3125rem 0.6875rem;
+    border-radius: 999px;
+    background-color: var(--color-ardoise);
+    color: var(--color-craie);
+    font-size: var(--text-micro);
     font-weight: 600;
-    letter-spacing: 0.06em;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
-    padding: 0.1875rem 0.5rem;
-    border-radius: 2px;
-    background-color: var(--color-fond);
-    border: 1px solid var(--color-filet);
-    color: var(--color-gris);
   }
 
-  .etiquette-ambre {
-    background-color: var(--color-ambre-sourd);
-    border-color: #f2d19a;
-    color: var(--color-ambre-texte);
+  .jeton-clair {
+    background-color: rgb(19 50 45 / 0.1);
+    color: var(--color-ardoise);
   }
 
-  /* -- Lien d'évitement --------------------------------------------------- */
+  .jeton-brique {
+    background-color: var(--color-brique);
+    color: var(--color-papier);
+  }
+
+  /* ------------------------------------------------------------------------
+     LIEN DE TEXTE
+     ---------------------------------------------------------------------- */
+
+  .lien {
+    display: inline-block;
+    padding-block: 0.1875rem;
+    color: inherit;
+    font-weight: 500;
+    text-decoration: none;
+    box-shadow: inset 0 -1px 0 0 var(--color-brique);
+    transition: box-shadow 160ms var(--sortie);
+  }
+  .lien:hover {
+    box-shadow: inset 0 -2px 0 0 var(--color-brique);
+  }
+
+  .bloc-ardoise .lien,
+  .bloc-brique .lien {
+    box-shadow: inset 0 -1px 0 0 var(--color-ocre);
+  }
+  .bloc-ardoise .lien:hover,
+  .bloc-brique .lien:hover {
+    box-shadow: inset 0 -2px 0 0 var(--color-ocre);
+  }
+
+  /* ------------------------------------------------------------------------
+     LIEN D'ÉVITEMENT
+     ---------------------------------------------------------------------- */
+
   .evitement {
     position: absolute;
-    left: 0.75rem;
-    top: 0.75rem;
+    left: var(--marge);
+    top: var(--marge);
     z-index: 100;
     transform: translateY(-200%);
-    background: var(--color-encre);
-    color: var(--color-papier);
-    padding: 0.625rem 1rem;
-    border-radius: var(--radius-box);
-    font-size: var(--text-base);
-    font-weight: 600;
+    background: var(--color-ardoise);
+    color: var(--color-craie);
+    padding: 0.6875rem 1.125rem;
+    border-radius: 999px;
+    font-size: var(--text-corps);
+    font-weight: 500;
     text-decoration: none;
   }
   .evitement:focus {
@@ -449,60 +583,55 @@
 }
 
 /* ==========================================================================
-   MOUVEMENT — apparition en fondu montant, 200 ms, 8 px. Rien d'autre.
+   BARRE D'APPEL MOBILE
    ========================================================================== */
 
-@layer utilities {
-  /* `data-anime` n'est posé que sur les blocs situés sous la ligne de
-     flottaison, et seulement par le script. Rien de ce qui est déjà peint
-     n'est masqué : ni clignotement, ni décalage, ni LCP retardé. */
-  @media (prefers-reduced-motion: no-preference) {
-    [data-apparition][data-anime] {
-      opacity: 0;
-      transform: translateY(8px);
-      transition: opacity 200ms var(--ease-sortie),
-        transform 200ms var(--ease-sortie);
-      transition-delay: var(--retard, 0ms);
-    }
-    [data-apparition][data-anime][data-visible] {
-      opacity: 1;
-      transform: none;
-    }
+@layer components {
+  .barre-appel {
+    position: fixed;
+    left: var(--marge);
+    right: var(--marge);
+    bottom: var(--marge);
+    z-index: 40;
   }
 
-  .sans-scroll {
-    overflow: hidden;
+  .barre-appel a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.625rem;
+    min-height: 3.25rem;
+    border-radius: 999px;
+    background-color: var(--color-brique);
+    color: var(--color-papier);
+    font-weight: 600;
+    text-decoration: none;
   }
-}
 
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
+  @media (min-width: 68.75rem) {
+    .barre-appel {
+      display: none;
+    }
   }
 }
 
 /* ==========================================================================
-   SÉLECTEUR DE MODE DE PAIEMENT — §6.2
-   Deux boutons radio et `:has()`. Aucun JavaScript sur la page qui conclut
-   les ventes : le prix est affiché avant que le moindre script n'ait pu
-   s'exécuter, et la navigation au clavier est celle du navigateur.
+   SÉLECTEUR DE MODE DE PAIEMENT
+
+   Deux boutons radio et `:has()`. Sur la page qui conclut les ventes, le prix
+   s'affiche avant qu'un script ait pu s'exécuter, et la navigation au clavier
+   reste celle du navigateur.
    ========================================================================== */
 
 @layer components {
   .selecteur {
     display: inline-flex;
-    border: 1px solid var(--color-filet);
-    border-radius: var(--radius-box);
-    background: var(--color-papier);
-    padding: 3px;
+    max-width: 100%;
+    padding: 4px;
     margin: 0;
+    border: 0;
+    border-radius: 999px;
+    background-color: rgb(19 50 45 / 0.1);
   }
 
   .selecteur input {
@@ -521,44 +650,40 @@
     display: grid;
     place-items: center;
     min-height: 2.75rem;
-    min-width: 8.5rem;
-    padding-inline: 1.25rem;
-    border-radius: 2px;
-    font-size: var(--text-base);
-    font-weight: 600;
-    color: var(--color-gris);
+    min-width: 6.5rem;
+    padding-inline: 1rem;
+    border-radius: 999px;
+    font-size: var(--text-corps);
+    font-weight: 500;
+    color: var(--color-ardoise);
     cursor: pointer;
-    transition: background-color 140ms var(--ease-sortie),
-      color 140ms var(--ease-sortie);
-  }
-
-  .selecteur label:hover {
-    color: var(--color-encre);
+    transition: background-color 160ms var(--sortie), color 160ms var(--sortie);
   }
 
   .selecteur input:checked + label {
-    background-color: var(--color-encre);
-    color: var(--color-papier);
+    background-color: var(--color-ardoise);
+    color: var(--color-craie);
   }
 
   .selecteur input:focus-visible + label {
-    outline: 2px solid var(--color-ambre);
+    outline: 2px solid var(--color-brique);
     outline-offset: 2px;
-    box-shadow: 0 0 0 4px rgb(20 32 46 / 0.9);
+    box-shadow: 0 0 0 4px rgb(255 255 255 / 0.95);
   }
 
   .tarifs:has(#mode-achat:checked) [data-mode="abonnement"],
   .tarifs:has(#mode-abonnement:checked) [data-mode="achat"] {
     display: none;
   }
+}
 
-  /* -- Accordéon natif ---------------------------------------------------- */
+/* ==========================================================================
+   ACCORDÉON NATIF
+   ========================================================================== */
 
-  .accordeon > details {
-    border-top: 1px solid var(--color-filet);
-  }
-  .accordeon > details:last-of-type {
-    border-bottom: 1px solid var(--color-filet);
+@layer components {
+  .accordeon > details + details {
+    border-top: 1px solid rgb(19 50 45 / 0.14);
   }
 
   .accordeon summary {
@@ -568,9 +693,10 @@
     gap: 1.5rem;
     padding-block: 1.125rem;
     min-height: 2.75rem;
-    font-size: var(--text-xl);
-    font-weight: 500;
-    letter-spacing: -0.011em;
+    font-family: var(--font-titre);
+    font-size: var(--text-chapo);
+    font-weight: 400;
+    line-height: 1.24;
     cursor: pointer;
     list-style: none;
   }
@@ -582,35 +708,36 @@
   .accordeon summary::after {
     content: "";
     flex: none;
-    width: 0.75rem;
-    height: 0.75rem;
-    margin-top: 0.4375rem;
-    border-right: 2px solid var(--color-ambre);
-    border-bottom: 2px solid var(--color-ambre);
-    transform: rotate(45deg);
-    transition: transform 160ms var(--ease-sortie);
+    width: 1.5rem;
+    height: 1.5rem;
+    margin-top: 0.125rem;
+    border-radius: 999px;
+    background-color: rgb(19 50 45 / 0.1);
+    background-image: linear-gradient(var(--color-ardoise), var(--color-ardoise)),
+      linear-gradient(var(--color-ardoise), var(--color-ardoise));
+    background-size: 0.625rem 1.5px, 1.5px 0.625rem;
+    background-position: center, center;
+    background-repeat: no-repeat;
+    transition: transform 200ms var(--sortie);
   }
 
   .accordeon details[open] summary::after {
-    transform: rotate(-135deg);
-  }
-
-  .accordeon summary:hover {
-    color: #000;
+    transform: rotate(135deg);
+    background-size: 0.625rem 1.5px, 0 0;
   }
 
   .accordeon .reponse {
     padding-bottom: 1.375rem;
-    max-width: 44rem;
-    color: var(--color-gris);
-    font-size: var(--text-base);
+    max-width: 42rem;
+    color: var(--color-sauge);
   }
 
-  /* -- Photo d'équipe : gris par défaut, couleur au survol. La seule
-        fioriture autorisée par la spécification. ---------------------------- */
+  /* ------------------------------------------------------------------------
+     PORTRAIT : gris au repos, couleur au survol.
+     ---------------------------------------------------------------------- */
   .portrait img {
-    filter: grayscale(1) contrast(1.02);
-    transition: filter 220ms var(--ease-sortie);
+    filter: grayscale(1) contrast(1.03);
+    transition: filter 260ms var(--sortie);
   }
   .portrait:hover img,
   .portrait:focus-within img {
@@ -618,8 +745,31 @@
   }
 }
 
-/* Utilitaire d'accessibilité : visible au lecteur d'écran seulement. */
+/* ==========================================================================
+   MOUVEMENT
+
+   Les blocs situés sous la ligne de flottaison montent de six pixels en
+   apparaissant. Ce qui est déjà peint au chargement ne bouge jamais.
+   ========================================================================== */
+
 @layer utilities {
+  @media (prefers-reduced-motion: no-preference) {
+    [data-apparition][data-anime] {
+      opacity: 0;
+      transform: translateY(6px);
+      transition: opacity 240ms var(--sortie), transform 240ms var(--sortie);
+      transition-delay: var(--retard, 0ms);
+    }
+    [data-apparition][data-anime][data-visible] {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  .sans-scroll {
+    overflow: hidden;
+  }
+
   .lecteur-seul {
     position: absolute;
     width: 1px;
@@ -633,65 +783,15 @@
   }
 }
 
-/* ==========================================================================
-   LOGOTYPE ET EN-TÊTE
-   ========================================================================== */
-
-@layer components {
-  .logotype {
-    display: inline-flex;
-    align-items: baseline;
-    user-select: none;
-    font-family: var(--font-display);
-    font-weight: 700;
-    letter-spacing: -0.03em;
-    font-size: 1.1875rem;
-    line-height: 1;
-    color: var(--color-encre);
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
   }
-
-  .logotype-grand {
-    font-size: 1.75rem;
-  }
-
-  .logotype-papier {
-    color: var(--color-papier);
-  }
-
-  .logotype-trait {
-    display: inline-block;
-    flex: none;
-    width: 0.42em;
-    height: 0.105em;
-    margin-inline: 0.13em;
-    background: currentColor;
-    /* La hauteur de capitale d'Archivo vaut ~0,73em : le milieu optique des
-       capitales se situe donc à 0,365em au-dessus de la ligne de base. En
-       flex, un élément vide s'aligne sur son bord inférieur et non sur sa
-       marge — c'est la transformation qui le relève, sans rien changer à la
-       mise en page. */
-    transform: translateY(-0.31em);
-  }
-
-  /* Un bouton ne coupe jamais son libellé : un numéro de téléphone passé à la
-     ligne double la hauteur de l'en-tête. */
-  .bouton {
-    white-space: nowrap;
-  }
-
-  /* Sous 400 px — le bas de gamme Android réel — l'en-tête doit tenir trois
-     éléments sur une ligne de 320 px : logotype, numéro, menu. On resserre,
-     on ne masque rien, et la cible tactile reste à 44 px. */
-  @media (max-width: 25rem) {
-    .entete .contenu {
-      padding-inline: 1rem;
-    }
-    .entete .logotype {
-      font-size: 1.0625rem;
-    }
-    .entete-appel {
-      font-size: 0.9375rem;
-      padding-inline: 0.5rem;
-    }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }

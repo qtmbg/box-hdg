@@ -8,7 +8,7 @@ import { useEffect } from "react";
  * Un point mérite d'être explicité, parce que la première version s'y est
  * cassé les dents : on ne masque jamais ce qui est déjà peint. Poser une
  * classe globale après l'hydratation faisait disparaître le héros pour le
- * refaire apparaître — un clignotement, un nouveau candidat au LCP, et un
+ * refaire apparaître : un clignotement, un nouveau candidat au LCP, et un
  * décalage de mise en page pour rien.
  *
  * Ici, seuls les blocs situés sous la ligne de flottaison reçoivent l'état

@@ -2,8 +2,6 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { INDEXABLE, ORIGINE, SITE } from "@/content/site";
 import { UI } from "@/content/commun";
-import { EnTete } from "@/components/EnTete";
-import { PiedDePage } from "@/components/PiedDePage";
 import { Apparition } from "@/components/Apparition";
 import { JsonLd } from "@/components/JsonLd";
 import { organisation } from "@/lib/jsonld";
@@ -11,7 +9,7 @@ import { organisation } from "@/lib/jsonld";
 export const metadata: Metadata = {
   metadataBase: new URL(ORIGINE),
   title: {
-    default: `${SITE.nom} — Création de site internet pour entreprises`,
+    default: `${SITE.nom} · Création de site internet pour entreprises`,
     template: `%s`,
   },
   description: SITE.baseline,
@@ -31,7 +29,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#14202e",
+  themeColor: "#13322d",
   colorScheme: "light",
   width: "device-width",
   initialScale: 1,
@@ -45,17 +43,16 @@ export default function RacineLayout({
   return (
     <html lang="fr">
       <head>
-        {/* La police du corps est préchargée : elle porte le LCP. */}
         <link
           rel="preload"
-          href="/fonts/inter-fr.woff2"
+          href="/fonts/schibsted-fr.woff2"
           as="font"
           type="font/woff2"
           crossOrigin="anonymous"
         />
         <link
           rel="preload"
-          href="/fonts/archivo-fr.woff2"
+          href="/fonts/newsreader-fr.woff2"
           as="font"
           type="font/woff2"
           crossOrigin="anonymous"
@@ -65,9 +62,7 @@ export default function RacineLayout({
         <a href="#contenu" className="evitement">
           {UI.allerAuContenu}
         </a>
-        <EnTete />
         <main id="contenu">{children}</main>
-        <PiedDePage />
         <Apparition />
         <JsonLd data={organisation()} />
       </body>

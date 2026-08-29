@@ -49,7 +49,7 @@ function verifier(nom, condition, detail = "") {
     console.log(`  ok    ${nom}`);
   } else {
     echecs.push(nom);
-    console.log(`  ÉCHEC ${nom}${detail ? ` — ${detail}` : ""}`);
+    console.log(`  ÉCHEC ${nom}${detail ? `, ${detail}` : ""}`);
   }
 }
 
@@ -104,8 +104,8 @@ for (const largeur of [320, 1440]) {
 /*
  * Deux règles, et non une.
  *
- * Les commandes — boutons, champs, sommaires d'accordéon, puces de filtre,
- * libellés du sélecteur de paiement — doivent tenir 44 px, seuil du critère
+ * Les commandes : boutons, champs, sommaires d'accordéon, puces de filtre,
+ * libellés du sélecteur de paiement : doivent tenir 44 px, seuil du critère
  * 2.5.5 de WCAG et du plancher de qualité de la §3.
  *
  * Les liens de texte relèvent du critère 2.5.8 (24 px), qui exclut
@@ -210,26 +210,23 @@ titre("Tarifs et FAQ sans JavaScript");
 
 /* -- Menu mobile --------------------------------------------------------- */
 
-titre("Menu mobile");
+titre("Navigation et appel, toutes largeurs");
 {
-  const ctx = await navigateur.newContext({
-    viewport: { width: 390, height: 844 },
-    isMobile: true,
-    hasTouch: true,
-  });
-  const page = await ctx.newPage();
-  await page.goto(BASE + "/");
-  const bouton = page.locator('header button[aria-controls="menu-mobile"]');
-  verifier("aria-expanded=false au repos", (await bouton.getAttribute("aria-expanded")) === "false");
-  await bouton.click();
-  verifier("panneau ouvert", await page.locator("#menu-mobile").isVisible());
-  verifier("focus déplacé dans le panneau", await page.evaluate(() => !!document.activeElement?.closest("#menu-mobile")));
-  verifier("défilement de fond bloqué", await page.evaluate(() => document.documentElement.classList.contains("sans-scroll")));
-  verifier("bouton d'appel toujours visible", await page.locator("header a[data-appel]").first().isVisible());
-  await page.keyboard.press("Escape");
-  await page.waitForTimeout(150);
-  verifier("Échap referme", (await page.locator("#menu-mobile").count()) === 0);
-  await ctx.close();
+  for (const largeur of [320, 768, 1600]) {
+    const ctx = await navigateur.newContext({
+      viewport: { width: largeur, height: 900 },
+      isMobile: largeur < 768,
+    });
+    const page = await ctx.newPage();
+    await page.goto(BASE + "/");
+    const liens = await page.locator("nav a").count();
+    verifier(`${largeur} px : navigation visible`, liens >= 4, `${liens} liens`);
+    verifier(
+      `${largeur} px : bouton d'appel atteignable`,
+      (await page.locator('a[href^="tel:"]').first().isVisible()),
+    );
+    await ctx.close();
+  }
 }
 
 /* -- Barre d'appel mobile ------------------------------------------------ */
@@ -241,13 +238,17 @@ titre("Barre d'appel mobile (§4.3)");
     isMobile: true,
   });
   const page = await ctx.newPage();
-  const barre = 'div.fixed.bottom-0 a[href^="tel:"]';
+  const barre = '.barre-appel a[href^="tel:"]';
   for (const chemin of ["/", "/tarifs", "/offres", "/offres/creation-site-internet", "/offres/refonte-site-internet", "/equipe"]) {
     await page.goto(BASE + chemin);
     verifier(`présente sur ${chemin}`, (await page.locator(barre).count()) === 1);
   }
   await page.goto(BASE + "/contact");
   verifier("absente sur /contact", (await page.locator(barre).count()) === 0);
+  verifier(
+    "/contact : appel tout de même présent",
+    (await page.locator('a[href^="tel:"]').count()) > 0,
+  );
   await ctx.close();
 }
 
@@ -347,7 +348,7 @@ titre("Drapeaux de fonctionnalité et indexation (§9, §12, §13)");
 
 /* -- Anneau de focus ---------------------------------------------------- */
 
-titre("Anneau de focus en ambre");
+titre("Anneau de focus");
 {
   const ctx = await navigateur.newContext({ viewport: { width: 1280, height: 900 } });
   const page = await ctx.newPage();
@@ -358,7 +359,7 @@ titre("Anneau de focus en ambre");
     return { couleur: s.outlineColor, largeur: s.outlineWidth, texte: document.activeElement.textContent.trim() };
   });
   verifier("premier Tab : lien d'évitement", style.texte.includes("Aller au contenu"), style.texte);
-  verifier("anneau ambre", style.couleur.includes("232, 147, 12"), style.couleur);
+  verifier("anneau brique", style.couleur.includes("192, 67, 28"), style.couleur);
   verifier("anneau visible", parseFloat(style.largeur) >= 2, style.largeur);
   await ctx.close();
 }
@@ -394,7 +395,9 @@ titre("Poids transféré");
     `  mesure  HTML ${ko(poids.document)} kB · CSS ${ko(poids.stylesheet)} kB · ` +
       `polices ${ko(poids.font)} kB · JS ${ko(poids.script)} kB (compressé)`,
   );
-  verifier("polices sous 40 kB", poids.font < 40 * 1024, `${ko(poids.font)} kB`);
+  // Deux familles, un serif et un grotesque, tous deux sous-ensemblés au
+  // répertoire français et réduits aux graisses employées.
+  verifier("polices sous 70 kB", poids.font < 70 * 1024, `${ko(poids.font)} kB`);
   verifier("CSS sous 12 kB compressé", poids.stylesheet + poids.document < 40 * 1024, `${ko(poids.stylesheet)} kB`);
   await ctx.close();
 }

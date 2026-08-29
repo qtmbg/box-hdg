@@ -1,16 +1,18 @@
 import { TARIFS } from "@/content/tarifs";
+import { Bloc } from "./Bloc";
 
 /**
- * §6.7 — Accordéon.
+ * Accordéon natif.
  *
- * `<details>` et `<summary>` natifs, avec l'attribut `name` qui rend
- * l'accordéon exclusif sans une ligne de JavaScript. Le contenu des réponses
- * est dans le HTML servi : il est indexable et lisible sans script.
+ * `<details>` et `<summary>`, avec l'attribut `name` qui rend l'accordéon
+ * exclusif sans une ligne de JavaScript. Les réponses sont dans le HTML servi,
+ * donc lisibles sans script et indexables.
  */
 export function Faq() {
   return (
-    <div className="mt-10 md:mt-12">
-      <div className="accordeon max-w-[52rem]" data-apparition>
+    <Bloc>
+      <h2 className="titre mesure">{TARIFS.faq.titre}</h2>
+      <div className="accordeon mt-6 max-w-[48rem]">
         {TARIFS.faq.items.map((item) => (
           <details key={item.question} name="faq">
             <summary>
@@ -20,6 +22,6 @@ export function Faq() {
           </details>
         ))}
       </div>
-    </div>
+    </Bloc>
   );
 }

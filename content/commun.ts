@@ -1,6 +1,6 @@
 import { fr } from "@/lib/fr";
 
-/** §5.5 — Le module de processus, réutilisé sur l'accueil et les deux offres. */
+/** §5.5. Le module de processus, réutilisé sur l'accueil et les deux offres. */
 export const PROCESSUS = fr({
   titre: "Comment ça se passe",
   etapes: [
@@ -27,14 +27,14 @@ export const PROCESSUS = fr({
   ],
   // Deux champs plutôt qu'une phrase découpée à l'exécution : la chaîne rendue
   // reste identique au mot près, et la mise en gras ne dépend plus d'un split
-  // sur « : » — que la typographie française transforme justement en espace
+  // sur « : », que la typographie française transforme justement en espace
   // insécable.
   engagementLabel: "Engagement de délai",
   engagementTexte:
     "livré sous cinq jours ouvrés à compter de la validation du contenu. Au-delà, le premier mois d'abonnement n'est pas facturé.",
 });
 
-/** §5.9 — Le bloc d'appel final, réutilisé sur quatre pages. */
+/** §5.9. Le bloc d'appel final, réutilisé sur quatre pages. */
 export const APPEL_FINAL = fr({
   titre:
     "Un appel de dix minutes suffit pour savoir si on peut travailler ensemble.",
@@ -56,7 +56,7 @@ export const MENTION_HT = "Prix en euros hors taxes.";
 /**
  * Textes d'interface.
  *
- * §2 — « Tout le contenu vit dans des objets typés sous /content ». Les
+ * §2. « Tout le contenu vit dans des objets typés sous /content ». Les
  * libellés de chrome comptent : ce sont eux qui traversent la typographie
  * française et qui se traduisent le jour où il faudra les traduire.
  */

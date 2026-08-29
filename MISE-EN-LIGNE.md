@@ -11,21 +11,21 @@ Sept points. Six bloquent l'ouverture au public ; la relecture des CGV (1.4)
 doit être faite avant la première vente, pas avant la mise en ligne. Chacun
 indique le fichier à modifier.
 
-### 1.1 Numéro de téléphone et email — `content/site.ts`
+### 1.1 Numéro de téléphone et email : `content/site.ts`
 
 Le numéro affiché, `06 39 98 76 54`, appartient à la plage `06 39 98 XX XX`
 réservée par l'ARCEP à la fiction : il ne peut sonner chez personne. C'est
-volontaire — un numéro « pris au hasard » sonnerait chez un inconnu.
+volontaire, un numéro « pris au hasard » sonnerait chez un inconnu.
 
 À remplacer : `telephone.affichage`, `telephone.lien`,
 `telephone.international`, et `email`.
 
-### 1.2 Nom de domaine — variable d'environnement
+### 1.2 Nom de domaine : variable d'environnement
 
 `NEXT_PUBLIC_SITE_URL`, sans slash final. Sert aux adresses canoniques, au
 sitemap, aux données structurées et aux cartes Open Graph.
 
-### 1.3 Identité légale — `content/legal.ts`
+### 1.3 Identité légale : `content/legal.ts`
 
 Obligatoire en France : article 6-III de la LCEN du 21 juin 2004 et article
 R123-237 du code de commerce. À renseigner :
@@ -58,14 +58,14 @@ Deux clauses méritent une attention particulière lors de la relecture :
   C'est un engagement contractuel chiffré, et c'est ce que le site promet en
   page d'accueil ;
 - **article 10**, le droit de rétractation. Un artisan de cinq salariés ou
-  moins qui commande un site — prestation hors de son activité principale —
-  bénéficie du délai de quatorze jours de l'article L221-3 du code de la
-  consommation. Cette clause est probablement la plus contre-intuitive du
+  moins qui commande un site, prestation située hors de son activité
+  principale, bénéficie du délai de quatorze jours prévu à l'article L221-3 du
+  code de la consommation. Cette clause est probablement la plus contre-intuitive du
   document pour l'agence, et c'est celle qui protège le plus en cas de litige.
 
 À faire **avant la première vente**, pas avant la mise en ligne.
 
-### 1.5 Données réalisations — `content/realisations.ts`
+### 1.5 Données réalisations : `content/realisations.ts`
 
 Le tableau est vide et `REALISATIONS_ENABLED` (dans `content/site.ts`) vaut
 `false`. Pour chaque référence : nom du client, secteur, ville, type
@@ -77,17 +77,17 @@ Remplir le tableau puis passer le drapeau à `true`. Le lien réapparaît dans l
 navigation, le teaser de l'accueil se rend, la page sort du 404 et entre dans le
 sitemap.
 
-### 1.6 Mouncef — `content/equipe.ts`
+### 1.6 Mouncef : `content/equipe.ts`
 
 Nom de famille, rôle et phrase de présentation manquants. La boîte reste à
 `actif: false`. **Ne pas inventer de rôle.** Une fois les informations reçues,
 renseigner les champs et passer `actif` à `true`.
 
-### 1.7 Photo de Nizzar — `public/equipe/`
+### 1.7 Photo de Nizzar : `public/equipe/`
 
 Déposer le fichier puis renseigner `photo: "/equipe/nizzar.jpg"` dans
 `content/equipe.ts`. Format carré, 800 × 800 px suffisent. En attendant, le
-carré porte les initiales en Archivo : jamais d'image cassée en production.
+carré porte les initiales en Newsreader : jamais d'image cassée en production.
 
 ---
 
@@ -97,9 +97,9 @@ carré porte les initiales en Archivo : jamais d'image cassée en production.
 
 Les vingt-trois attestations ont été fournies et vérifiées :
 
-- **Anthropic Academy, 20 attestations** — PDF nominatifs au nom de Nizzar Ben
+- **Anthropic Academy, 20 attestations**, PDF nominatifs au nom de Nizzar Ben
   Chekroune, de « Claude 101 » à « Teaching the AI Fluency Framework ».
-- **OpenAI Academy, 3 attestations** — « AI Foundations », « Applied AI
+- **OpenAI Academy, 3 attestations**, « AI Foundations », « Applied AI
   Foundations », « Agents and Workflows », délivrées le 14 juillet 2026,
   chacune avec un identifiant public. Les trois adresses ont été ouvertes et
   répondent 200 en affichant le nom et l'intitulé du cours.
@@ -114,7 +114,7 @@ vérifiables portant leur URL.
 Ce sont des attestations de suivi de cours, pas un titre professionnel
 accrédité. Écrire « certifié Anthropic » laisserait entendre une accréditation
 professionnelle qui n'existe pas, ce qui relèverait de l'article L121-2 du code
-de la consommation — alors que « vingt-trois certificats de formation délivrés
+de la consommation, alors que « vingt-trois certificats de formation délivrés
 par Anthropic Academy et OpenAI Academy » est exact, vérifiable, et dit la même
 chose en plus fort.
 
@@ -135,18 +135,23 @@ existe donc et se contente d'orienter vers les deux offres réelles : titre, les
 deux cartes de situation, le module de processus, les tarifs en version
 condensée, appel final.
 
-### 2.4 Trois couleurs ont été ajoutées à la palette
+### 2.4 La direction visuelle a été refondue
 
-Pour des raisons de contraste mesuré, détaillées dans le README. La plus
-importante : **l'ambre pur ne peut pas servir de couleur de texte** sur fond
-clair (2,44:1, seuil à 4,5:1). Une déclinaison assombrie, `#A05C00`, sert
-partout où l'accent doit être lu. Corollaire : les boutons ambre portent du
-texte encre, pas du blanc.
+Le site est passé au système de blocs décrit dans le README : surfaces de
+couleur pleine, colonne d'identité fixe, serif Newsreader sur grotesque
+Schibsted. La palette a été construite avec les contrastes calculés, ce qui
+permet à `brique` de tenir en texte comme en fond de bouton.
+
+Trois conséquences pratiques. Le tiret cadratin a disparu du projet entier,
+copie, documentation et commentaires compris. Les flèches typographiques ont
+été retirées, faute d'être dessinées par les deux familles retenues, et la
+mise en forme des liens suffit à les signaler. Les intervalles chiffrés se
+disent avec « à » plutôt qu'avec un tiret, ce qui se lit à voix haute.
 
 ### 2.5 `PRICING.marche` a été étendu
 
-Le tableau de la §5.6 comporte quatre lignes — agence, freelance, solution en
-abonnement, Box-HDG — mais les clés fournies ne couvraient que l'agence et les
+Le tableau de la §5.6 comporte quatre lignes, agence, freelance, solution en
+abonnement, Box-HDG, mais les clés fournies ne couvraient que l'agence et les
 délais. Les blocs `freelance*` et `abonnement*` ont été ajoutés au même objet.
 Les clés d'origine sont intactes.
 
@@ -202,8 +207,8 @@ Trois leviers, du moins au plus coûteux :
    asynchrone et ne bloque pas le premier rendu. C'est la recommandation.
 2. **Retirer les préchargements de route de Next.** Économise quelques
    kilo-octets de trafic, dégrade la navigation interne. Peu d'intérêt.
-3. **Quitter l'App Router** pour un générateur sans runtime client — Astro ou
-   Eleventy — et réécrire les trois composants clients en JavaScript nu.
+3. **Quitter l'App Router** pour un générateur sans runtime client, Astro ou
+   Eleventy, et réécrire les trois composants clients en JavaScript nu.
    Descendrait sous 15 kB. Coût : une réécriture, et l'abandon d'un socle que
    la §2 de la spécification impose explicitement.
 
@@ -222,9 +227,9 @@ Il n'est pas indexable, et c'est voulu. Le drapeau `INDEXABLE`
 (`content/site.ts`) exige deux conditions, et les deux sont fausses
 aujourd'hui :
 
-1. `LEGAL_COMPLET` doit être à `true` — présenter au public un site commercial
+1. `LEGAL_COMPLET` doit être à `true`, présenter au public un site commercial
    sans mentions légales complètes n'est pas défendable ;
-2. l'adresse ne doit pas se terminer par `.vercel.app` — sinon Google garderait
+2. l'adresse ne doit pas se terminer par `.vercel.app`, sinon Google garderait
    une copie qui viendrait concurrencer le vrai domaine le jour de son
    ouverture.
 
@@ -243,7 +248,7 @@ résultats de recherche.
 
 ⚠️ Le formulaire de contact renvoie une erreur technique sur ce déploiement :
 `RESEND_API_KEY` et `CONTACT_FROM_EMAIL` ne sont pas renseignés. C'est le
-comportement voulu — il vaut mieux dire à un prospect que l'envoi a échoué que
+comportement voulu, il vaut mieux dire à un prospect que l'envoi a échoué que
 de perdre sa demande en silence. Renseigner les deux variables sur Vercel pour
 activer l'envoi.
 
@@ -255,7 +260,8 @@ npm run build && npm start
 npm run verifier                            # local
 npm run verifier https://box-hdg.vercel.app # production
 # 96 vérifications, 0 échec attendu
-npx lighthouse http://localhost:3000 --form-factor=mobile --only-categories=performance,accessibility,best-practices,seo
+npx lighthouse http://localhost:3000 --form-factor=mobile --only-
+categories=performance,accessibility,best-practices,seo
 ```
 
 Puis, à la main :

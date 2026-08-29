@@ -3,8 +3,11 @@
  *
  * Le français impose une espace avant ? ! ; : » et après «. Cette espace doit
  * être insécable, sinon la ponctuation se retrouve seule en début de ligne.
- * Fine insécable (U+202F) pour ? ! ; — insécable pleine (U+00A0) pour : et les
- * groupes de milliers.
+ *
+ * On emploie partout l'insécable pleine (U+00A0). L'espace fine (U+202F) serait
+ * la forme de haute typographie, mais ni Newsreader ni Schibsted Grotesk ne la
+ * dessinent : elle déclencherait un repli sur une autre police à chaque
+ * ponctuation haute.
  *
  * La transformation est appliquée une seule fois, au chargement des modules de
  * contenu, donc au build. Aucun coût à l'exécution, et les métadonnées en
@@ -12,7 +15,7 @@
  */
 
 export const NBSP = " ";
-export const FINE = " ";
+export const FINE = NBSP;
 
 const ESPACE = "[ \\u00A0\\u202F]+";
 

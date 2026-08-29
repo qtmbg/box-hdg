@@ -2,7 +2,7 @@ import { fr } from "@/lib/fr";
 
 export const TARIFS = fr({
   meta: {
-    titre: "Tarifs — Box-HDG",
+    titre: "Tarifs · Box-HDG",
     description:
       "Deux formules, deux modes de paiement, aucun coût caché. Site vitrine à partir de 890 € HT ou 69 € HT par mois.",
   },
@@ -11,7 +11,7 @@ export const TARIFS = fr({
   chapo:
     "Deux formules. Deux façons de payer. Tous les prix sont sur cette page, il n'y a rien d'autre.",
 
-  /** §6.2 — sélecteur de mode de paiement. */
+  /** §6.2. sélecteur de mode de paiement. */
   modes: {
     legende: "Mode de paiement",
     achat: {
@@ -24,7 +24,7 @@ export const TARIFS = fr({
     },
   },
 
-  /** §6.3 — grille. Les montants viennent exclusivement de PRICING. */
+  /** §6.3. grille. Les montants viennent exclusivement de PRICING. */
   formules: [
     {
       cle: "essentiel",
@@ -63,7 +63,7 @@ export const TARIFS = fr({
     parMois: "/ mois",
   },
 
-  /** §6.4 — périmètre borné. Ne pas retirer. */
+  /** §6.4. périmètre borné. Ne pas retirer. */
   abonnement: {
     titre: "Ce que couvre l'abonnement mensuel",
     inclus: [
@@ -76,7 +76,7 @@ export const TARIFS = fr({
       "Ne sont pas comprises : la création de nouvelles pages, la refonte du design et l'ajout de fonctionnalités. Ces demandes sont chiffrées à part.",
   },
 
-  /** §6.5 — options. Montants dans PRICING.options. */
+  /** §6.5. options. Montants dans PRICING.options. */
   options: {
     titre: "Options",
     liste: [
@@ -94,7 +94,7 @@ export const TARIFS = fr({
     ],
   },
 
-  /** §6.6 — dire non par écrit. Filtre les appels et installe la confiance. */
+  /** §6.6. dire non par écrit. Filtre les appels et installe la confiance. */
   refus: {
     titre: "Ce qu'on ne fait pas",
     texte:

@@ -1,30 +1,20 @@
 /**
- * Logotype BOX-HDG.
+ * Logotype Box-HDG.
  *
- * Archivo 700, interlettrage -0,03em. Le trait d'union est dessiné et non
- * composé : le tiret d'Archivo est court et fin, et dans un logotype en
- * capitales resserrées il se lit comme une poussière. Un filet de 0,105em,
- * relevé au milieu optique des capitales, tient la ligne.
- *
- * Le corps est porté par une classe et non par un style en ligne : l'en-tête
- * doit pouvoir le réduire sous 400 px de large, où chaque pixel compte.
+ * Schibsted Grotesk, graisse 600, interlettrage resserré. Il se pose en haut
+ * de la colonne d'identité et nulle part ailleurs. Un logotype qui se répète
+ * dans chaque bloc perd sa fonction.
  */
-export function Logotype({
-  taille = "normal",
-  ton = "encre",
-}: {
-  taille?: "normal" | "grand";
-  ton?: "encre" | "papier";
-}) {
+export function Logotype({ ton = "encre" }: { ton?: "encre" | "craie" }) {
   return (
     <span
-      className={`logotype ${taille === "grand" ? "logotype-grand" : ""} ${
-        ton === "papier" ? "logotype-papier" : ""
-      }`.trim()}
+      className="inline-block select-none text-[0.9375rem] font-semibold tracking-[-0.02em]"
+      style={{
+        fontFamily: "var(--font-texte)",
+        color: ton === "craie" ? "var(--color-craie)" : "var(--color-ardoise)",
+      }}
     >
-      BOX
-      <span aria-hidden="true" className="logotype-trait" />
-      HDG
+      Box-HDG
     </span>
   );
 }

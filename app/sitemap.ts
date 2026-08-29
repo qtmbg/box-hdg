@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 import { INDEXABLE, ORIGINE, REALISATIONS_ENABLED } from "@/content/site";
 import { LEGAL_COMPLET } from "@/content/legal";
 
-/** §13 — Sitemap généré au build. Rien n'y figure qui ne soit publiable. */
+/** §13. Sitemap généré au build. Rien n'y figure qui ne soit publiable. */
 export default function sitemap(): MetadataRoute.Sitemap {
   if (!INDEXABLE) return [];
 

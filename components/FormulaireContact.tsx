@@ -8,7 +8,7 @@ import { ETAT_INITIAL, type Champ } from "@/app/contact/etat";
 const F = CONTACT.formulaire;
 
 /**
- * §11 — Formulaire de contact.
+ * §11. Formulaire de contact.
  *
  * Action serveur : le formulaire fonctionne sans JavaScript, la couche client
  * n'ajoute que l'état d'envoi et le déplacement du focus sur le résultat.
@@ -29,12 +29,9 @@ export function FormulaireContact() {
         ref={resultat}
         tabIndex={-1}
         role="status"
-        className="encadre"
-        style={{ borderColor: "var(--color-ambre)", borderWidth: "2px" }}
+        className="rounded-[var(--rayon-petit)] bg-ocre px-6 py-8"
       >
-        <p className="text-[1.375rem] font-semibold leading-snug tracking-[-0.018em]">
-          {F.succes}
-        </p>
+        <p className="chapo">{F.succes}</p>
       </div>
     );
   }
@@ -52,7 +49,7 @@ export function FormulaireContact() {
       >
         {erreurs.global ? (
           <p
-            className="rounded-[4px] border border-encre bg-fond px-4 py-3 text-base"
+            className="rounded-[var(--rayon-petit)] bg-ocre px-5 py-4"
             role="alert"
           >
             {erreurs.global}
@@ -100,7 +97,7 @@ export function FormulaireContact() {
       </div>
 
       <fieldset className="border-0 p-0">
-        <legend className="mb-2.5 text-base font-medium">
+        <legend className="mb-2.5 font-medium">
           {F.champs.siteExistant}
         </legend>
         <div className="flex flex-col gap-2.5 sm:flex-row sm:gap-6">
@@ -150,12 +147,12 @@ export function FormulaireContact() {
       <div>
         <button
           type="submit"
-          className="bouton bouton-principal w-full sm:w-auto sm:min-w-[12rem]"
+          className="pilule pilule-pleine w-full sm:w-auto sm:min-w-[12rem]"
           disabled={enCours}
         >
           {enCours ? F.envoiEnCours : F.envoyer}
         </button>
-        <p className="mt-3.5 max-w-[30rem] text-xs leading-relaxed text-gris">
+        <p className="discret mt-4 max-w-[30rem] text-[0.8125rem] leading-relaxed">
           {F.mentionDonnees}
         </p>
       </div>
@@ -195,19 +192,19 @@ function Champ_({
     .join(" ");
 
   const classe = [
-    "w-full rounded-[4px] border bg-papier px-3.5 py-2.5 text-base",
-    "min-h-[2.75rem] placeholder:text-filet-fort",
-    erreur ? "border-encre border-2" : "border-filet",
+    "w-full rounded-[var(--rayon-petit)] bg-craie px-4 py-3",
+    "min-h-[2.875rem] placeholder:text-ardoise/35 outline-offset-2",
+    erreur ? "ring-2 ring-brique" : "ring-1 ring-ardoise/12",
   ].join(" ");
 
   return (
     <div>
       <div className="mb-2 flex items-baseline gap-2">
-        <label htmlFor={nom} className="text-base font-medium">
+        <label htmlFor={nom} className="font-medium">
           {libelle}
         </label>
         {aide ? (
-          <span id={idAide} className="text-sm text-gris">
+          <span id={idAide} className="discret text-[0.875rem]">
             {aide}
           </span>
         ) : null}
@@ -239,7 +236,7 @@ function Champ_({
       )}
 
       {erreur ? (
-        <p id={idErreur} className="mt-2 text-base font-medium">
+        <p id={idErreur} className="mt-2 font-medium text-brique">
           {erreur}
         </p>
       ) : null}
@@ -265,9 +262,9 @@ function Radio({
         name="siteExistant"
         value={valeur}
         defaultChecked={defaut === valeur}
-        className="h-[18px] w-[18px] shrink-0 accent-[var(--color-ambre)]"
+        className="h-[18px] w-[18px] shrink-0 accent-[var(--color-brique)]"
       />
-      <label htmlFor={id} className="min-h-[2.75rem] content-center text-base">
+      <label htmlFor={id} className="min-h-[2.75rem] content-center">
         {libelle}
       </label>
     </span>

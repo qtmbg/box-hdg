@@ -5,7 +5,7 @@ import { PAGE_REALISATIONS, secteurs, type Realisation } from "@/content/realisa
 import { CarteRealisation } from "./CarteRealisation";
 
 /**
- * §9 — Grille de réalisations et sa barre de filtres.
+ * §9. Grille de réalisations et sa barre de filtres.
  *
  * Filtrage côté client, sans bibliothèque : un `useState` et un `filter`.
  * Les puces sont des boutons dans un groupe annoncé, pas des liens : elles ne
@@ -38,7 +38,7 @@ export function GrilleRealisations({ liste }: { liste: Realisation[] }) {
       <div
         role="group"
         aria-label={PAGE_REALISATIONS.legendeFiltres}
-        className="flex flex-wrap gap-2 border-y border-filet py-4"
+        className="flex flex-wrap gap-2"
       >
         {puces.map((p) => {
           const actif = filtre === p.cle;
@@ -48,11 +48,7 @@ export function GrilleRealisations({ liste }: { liste: Realisation[] }) {
               type="button"
               aria-pressed={actif}
               onClick={() => setFiltre(p.cle)}
-              className={`min-h-11 rounded-[4px] border px-3.5 text-base font-medium transition-colors ${
-                actif
-                  ? "border-encre bg-encre text-papier"
-                  : "border-filet text-gris hover:text-encre"
-              }`}
+              className={`pilule ${actif ? "pilule-encre" : "pilule-trait"}`}
             >
               {p.libelle}
             </button>
@@ -60,7 +56,7 @@ export function GrilleRealisations({ liste }: { liste: Realisation[] }) {
         })}
       </div>
 
-      <ul className="mt-9 grid gap-8 md:grid-cols-2 md:gap-7 lg:grid-cols-3">
+      <ul className="mt-[var(--marge)] grid gap-[var(--marge)] md:grid-cols-2 xl:grid-cols-3">
         {visibles.map((r) => (
           <CarteRealisation key={r.slug} realisation={r} />
         ))}
@@ -76,15 +72,15 @@ function BandeauCitations({ liste }: { liste: Realisation[] }) {
   if (!citations.length) return null;
 
   return (
-    <div className="mt-14 border-t border-filet pt-11">
+    <div className="mt-[var(--marge)] bloc bloc-sable">
       <ul className="grid gap-9 md:grid-cols-2 md:gap-10">
         {citations.map((r) => (
           <li key={r.slug}>
-            <blockquote className="text-[1.375rem] leading-[1.45] tracking-[-0.014em]">
+            <blockquote className="chapo">
               {r.citation!.texte}
             </blockquote>
-            <p className="mt-3.5 text-base text-gris">
-              — {r.citation!.auteur}, {r.citation!.role}
+            <p className="discret mt-3.5 text-[0.9375rem]">
+              {r.citation!.auteur}, {r.citation!.role}
             </p>
           </li>
         ))}

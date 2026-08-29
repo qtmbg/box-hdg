@@ -2,7 +2,7 @@ import { fr } from "@/lib/fr";
 
 export const CONTACT = fr({
   meta: {
-    titre: "Contact — Box-HDG",
+    titre: "Contact · Box-HDG",
     description:
       "Le plus rapide, c'est le téléphone. Formulaire de contact, réponse sous 24 heures ouvrées.",
   },

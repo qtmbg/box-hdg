@@ -15,9 +15,16 @@ export function parMois(montant: number): string {
   return `${eurosHT(montant)} / mois`;
 }
 
-/** 1500, 3500 → « 1 500 – 3 500 € ». Tiret demi-cadratin, comme en édition. */
+/**
+ * 1500, 3500 → « de 1 500 à 3 500 € ».
+ *
+ * Un intervalle se lit à voix haute avec « à ». Le tiret oblige le lecteur à
+ * traduire un signe en mot, et sur un site qui parle à des artisans ça ne se
+ * justifie pas.
+ */
 export function fourchetteEuros(min: number, max: number): string {
-  return `${min.toLocaleString("fr-FR").replace(/[\u00A0\u202F\s]/g, NBSP)}${NBSP}–${NBSP}${euros(max)}`;
+  const bas = min.toLocaleString("fr-FR").replace(/[\u00A0\u202F\s]/g, NBSP);
+  return `${bas}${NBSP}à${NBSP}${euros(max)}`;
 }
 
 export function fourchetteSemaines(min: number, max: number): string {

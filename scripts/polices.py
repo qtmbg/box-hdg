@@ -9,8 +9,8 @@ Trois opérations, dans cet ordre :
      ni l'espace fine insécable (U+202F), ni la flèche (U+2192) : deux
      caractères que ce site utilise. Il faut donc partir des fichiers sources.
 
-  2. réduction des axes variables aux valeurs réellement appelées — Inter
-     400-600, Archivo 600-700, largeur figée à 100 — ce qui supprime les deltas
+  2. réduction des axes variables aux valeurs réellement appelées, Inter
+     400-600, Archivo 600-700, largeur figée à 100, ce qui supprime les deltas
      des graisses jamais utilisées.
 
   3. sous-ensemble limité au répertoire français, ponctuation typographique
@@ -41,25 +41,24 @@ SORTIE = RACINE / "public" / "fonts"
 
 DEPOT = "https://raw.githubusercontent.com/google/fonts/main/ofl"
 
-# (dossier upstream, fichier upstream, source locale, sortie, axes, licence)
 POLICES = [
     {
-        "dossier": "inter",
-        "fichier": "Inter%5Bopsz%2Cwght%5D.ttf",
-        "source": "inter-variable.ttf",
-        "sortie": "inter-fr",
-        # opsz est figé sur le corps de texte : Inter ne sert qu'en 13-36 px,
-        # sur une plage où le dessin optique bouge peu. Conserver l'axe coûtait
-        # 12 kB de deltas pour une différence invisible à ces corps-là.
-        "axes": {"opsz": 18, "wght": (400, 600)},
+        "dossier": "newsreader",
+        "fichier": "Newsreader%5Bopsz%2Cwght%5D.ttf",
+        "source": "newsreader-variable.ttf",
+        "sortie": "newsreader-fr",
+        # L'axe optique est figé à 26. Garder l'axe coûtait 55 kB de deltas,
+        # sur une famille qui compose ici entre 20 et 64 px. Le dessin choisi
+        # tient les deux bouts : assez ouvert pour un chapô, assez fin pour un
+        # grand titre.
+        "axes": {"opsz": 26, "wght": (320, 420)},
     },
     {
-        "dossier": "archivo",
-        "fichier": "Archivo%5Bwdth%2Cwght%5D.ttf",
-        "source": "archivo-variable.ttf",
-        "sortie": "archivo-fr",
-        # La largeur est figée : le site n'utilise que la largeur normale.
-        "axes": {"wdth": 100, "wght": (600, 700)},
+        "dossier": "schibstedgrotesk",
+        "fichier": "SchibstedGrotesk%5Bwght%5D.ttf",
+        "source": "schibsted-variable.ttf",
+        "sortie": "schibsted-fr",
+        "axes": {"wght": (400, 620)},
     },
 ]
 
@@ -80,23 +79,14 @@ PLAGES: list[tuple[int, int] | int] = [
     0x0153,  # Œ œ
     0x00C6,
     0x00E6,  # Æ æ
-    0x2010,
-    0x2011,
-    0x2013,
-    0x2014,  # traits d'union et tirets
+    0x2013,  # tiret demi-cadratin, pour les intervalles chiffrés
     0x2018,
     0x2019,  # ‘ ’
     0x201C,
     0x201D,  # “ ”
     0x2020,  # †
     0x2026,  # …
-    0x2009,  # espace fine
-    0x202F,  # espace fine insécable
     0x20AC,  # €
-    0x2190,
-    0x2191,
-    0x2192,
-    0x2193,  # ← ↑ → ↓
     0x2212,  # −
     0xFEFF,
 ]
@@ -209,7 +199,7 @@ def verifier() -> None:
         etat = "complet" if not manquants else (
             "manque " + " ".join(f"U+{m:04X}" for m in manquants)
         )
-        print(f"  {spec['sortie']:<12} {f['maxp'].numGlyphs:4d} glyphes — {etat}")
+        print(f"  {spec['sortie']:<12} {f['maxp'].numGlyphs:4d} glyphes, {etat}")
 
 
 if __name__ == "__main__":

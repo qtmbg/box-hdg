@@ -29,7 +29,7 @@ URL en argument : `node tests/verification.mjs http://localhost:3128`.
 
 Variables d'environnement : copier `.env.example` en `.env.local`. Sans
 `RESEND_API_KEY`, le formulaire journalise le message en développement et
-renvoie une erreur en production — il ne perd jamais une demande en silence.
+renvoie une erreur en production, il ne perd jamais une demande en silence.
 
 ---
 
@@ -55,49 +55,46 @@ scripts/polices.py   fabrication des polices auto-hébergées
 tests/               vérification du site
 ```
 
-Le contenu ne vit jamais dans un composant. Un libellé de bouton, un titre de
-colonne de pied de page, un message d'erreur : tout passe par `/content`. C'est
-ce qui garantit que la typographie française s'applique partout, y compris dans
-les métadonnées.
+## Le système
 
----
+Le site est une surface de blocs. Chaque bloc porte une couleur pleine, un
+rayon de 18 px, et rien d'autre. Aucune bordure, aucune ombre, aucun filet de
+séparation nulle part. C'est la couleur qui découpe la page, et les dix pixels
+qui séparent les blocs qui la font respirer.
 
-## Système de design
+Au-dessus de 1100 px, une colonne d'identité reste fixe à gauche pendant que
+le contenu défile à droite. Elle porte le logotype, la navigation, le titre de
+la page, une phrase, et le bouton d'appel. Le numéro est donc lisible du début
+à la fin de chaque page, sans barre collante qui vienne manger le haut de
+l'écran. En dessous de cette largeur, la colonne redevient un bloc ordinaire
+en tête de pile et la barre d'appel prend le relais en bas.
 
-Le brief dit « ennuyeux, clair, simple, rapide ». C'est une direction, pas une
-absence de direction : elle s'exécute avec précision plutôt qu'avec du décor.
+### Palette
 
-| Rôle | Jeton | Valeur |
-|---|---|---|
-| Texte, sections sombres | `encre` | `#14202E` |
-| Fond de page | `papier` | `#FFFFFF` |
-| Texte secondaire | `gris` | `#5B6B7C` |
-| Filets de 1 px, bordures | `filet` | `#E3E7EB` |
-| Accent unique | `ambre` | `#E8930C` |
-| Fond de section alternée | `fond` | `#F7F8F9` |
+| Rôle | Nom | Valeur | Contraste mesuré |
+|---|---|---|---|
+| Fond de page | `craie` | `#F4EFE4` | |
+| Blocs clairs | `papier` | `#FFFFFF` | |
+| Encre | `ardoise` | `#13322D` | 12,0:1 sur craie |
+| Texte secondaire | `sauge` | `#4A605A` | 5,9:1 sur craie |
+| Accent | `brique` | `#C0431C` | 4,5:1 sur craie, 5,2:1 en blanc dessus |
+| Bloc chaud | `ocre` | `#EEA749` | ardoise dessus : 6,7:1 |
+| Bloc doux | `argile` | `#E8C2AB` | ardoise dessus : 8,4:1 |
+| Bloc secondaire | `sable` | `#EAE1D0` | ardoise dessus : 10,6:1 |
 
-Trois déclinaisons ont été ajoutées, pour des raisons de contraste et non de
-goût :
+Les rapports sont calculés, pas estimés. `brique` tient le seuil de 4,5:1 en
+texte sur les fonds clairs, ce qui lui permet de servir aussi bien de couleur
+d'accent que de fond de bouton.
 
-- **`ambre-texte` `#A05C00`** — l'ambre pur plafonne à 2,44:1 sur blanc, sous
-  le seuil de 4,5:1. Partout où l'accent doit être *lu* comme texte (le rôle
-  sur la page équipe, l'étiquette « Après »), c'est cette déclinaison qui sert.
-  L'ambre pur reste réservé aux fonds, aux étoiles et aux barres.
-- **`barre` `#7B8896`** — les barres du module de comparaison, à 3,4:1 sur le
-  fond gris, seuil des éléments graphiques non textuels.
-- **`filet-fort` `#C6CFD8`** — filet assombri, usages non informatifs.
+### Typographie
 
-Conséquence directe : **les boutons ambre portent du texte encre** (6,75:1). Du
-blanc sur ambre tomberait à 2,44:1.
+**Newsreader** compose les titres, les chapôs et les prix. C'est un serif de
+labeur, chaleureux, dessiné pour être lu, et il tient aussi bien un titre de
+56 px qu'un paragraphe de 22 px.
 
-Typographie : **Archivo** 600/700 pour les titres, interlettrage `-0.02em`.
-**Inter** 400/500/600 pour le corps et l'interface, chiffres tabulaires partout.
-Échelle 14 / 16 / 18 / 22 / 28 / 36 / 48. Corps à 18 px sur desktop, 17 px sur
-mobile.
-
-Pas de dégradé. Une seule ombre, `0 1px 2px rgb(20 32 46 / 0.06)`, sur les
-cartes. Rayon de 4 px, partout. Le filet de 1 px est le seul ornement
-structurel du site.
+**Schibsted Grotesk** prend le corps de texte, l'interface et les chiffres
+tabulaires. Le contraste entre la plume de l'un et la netteté de l'autre
+remplace tout l'appareil de règles et de cadres que le site n'a pas.
 
 Mouvement : apparition en fondu montant, 200 ms, 8 px, et rien d'autre.
 `prefers-reduced-motion` désactive tout. Le script ne masque **jamais** un bloc
@@ -122,11 +119,11 @@ Toute l'audace du site est dépensée là. Le reste reste silencieux.
 
 `lib/fr.ts` applique, une seule fois au chargement des modules de contenu :
 
-- l'apostrophe typographique — `l'équipe` devient `l’équipe` ;
+- l'apostrophe typographique, `l'équipe` devient `l’équipe` ;
 - l'espace insécable avant `:` et dans les groupes de milliers ;
 - l'espace fine insécable avant `?` `!` `;` ;
 - les guillemets français avec leurs espaces ;
-- l'insécable entre un nombre et son unité — `890 €`, `9 h`.
+- l'insécable entre un nombre et son unité, `890 €`, `9 h`.
 
 La transformation a lieu au build. Aucun coût à l'exécution, et les
 métadonnées en bénéficient au même titre que le corps de page.
@@ -147,14 +144,14 @@ réduit le jeu de glyphes au répertoire français.
 
 | | Source | Servi |
 |---|---|---|
-| Inter | 856 kB | **21,8 kB** (`opsz=18`, `wght 400-600`) |
-| Archivo | 643 kB | **14,6 kB** (`wdth=100`, `wght 600-700`) |
+| Newsreader | 441 kB | **31,1 kB** (`opsz=26`, `wght 320-420`) |
+| Schibsted Grotesk | 172 kB | **29,1 kB** (`wght 400-620`) |
 
 Les sous-ensembles « latin » de l'API Google Fonts ne contiennent ni l'espace
 fine insécable (U+202F) ni la flèche (U+2192), deux caractères que ce site
-utilise : c'est pourquoi le script part des fichiers sources. Archivo ne
+utilise : c'est pourquoi le script part des fichiers sources. Aucune des
 déclare pas U+202F ; le script associe ce point de code au glyphe U+2009
-existant, dont le dessin est identique — seule la règle de coupure diffère, et
+existant, dont le dessin est identique, seule la règle de coupure diffère, et
 elle appartient au moteur de rendu.
 
 Les deux familles sont sous SIL Open Font License 1.1. Les licences sont
@@ -181,7 +178,7 @@ divisé par quatre), le LCP mesuré est de **0,52 s** sur l'accueil et de 0,41 s
 sur les tarifs.
 
 Poids transféré sur l'accueil : HTML 37,7 kB (feuille de style incluse),
-polices 36,3 kB, JavaScript 140,8 kB — tout compressé.
+polices 36,3 kB, JavaScript 140,8 kB, tout compressé.
 
 Le budget de 90 kB de JavaScript de la spécification n'est pas atteint, et ne
 peut pas l'être avec l'App Router : le socle React + routeur pèse à lui seul
@@ -212,7 +209,7 @@ rendu ; laisser une adresse accessible et vide serait la troisième version du
 même défaut. Le jour où les données arrivent, le drapeau passe à `true`.
 
 **Les formations certifiées sont publiées et vérifiables.** Vingt-trois
-attestations — vingt d'Anthropic Academy, trois d'OpenAI Academy — présentées
+attestations, vingt d'Anthropic Academy, trois d'OpenAI Academy, présentées
 par leur nombre, dépliables au détail, avec un lien de vérification sur les
 trois certificats OpenAI et une déclaration `hasCredential` en données
 structurées. Le libellé dit « certificats de formation », ce qu'ils sont, et
@@ -220,7 +217,7 @@ non « consultant certifié », ce qu'ils ne sont pas.
 
 **Aucune carte fantôme sur la page équipe.** La grille se réduit au nombre de
 membres actifs. Une photo manquante sur une personne réelle tombe sur ses
-initiales, en Archivo, dans le même carré — ce qui n'a rien à voir avec les
+initiales, en Newsreader, dans le même carré, ce qui n'a rien à voir avec les
 silhouettes grises que la page existe précisément pour éviter.
 
 ---

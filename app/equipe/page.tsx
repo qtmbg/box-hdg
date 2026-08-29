@@ -1,13 +1,11 @@
 import type { Metadata } from "next";
 import { PAGE_EQUIPE } from "@/content/equipe";
-import { Section, TitreSection } from "@/components/Section";
-import { Fil } from "@/components/Fil";
-import { GrilleEquipe } from "@/components/GrilleEquipe";
+import { Page } from "@/components/Page";
+import { GrilleEquipe, MethodeEquipe } from "@/components/GrilleEquipe";
 import { Certifications } from "@/components/Certifications";
+import { AppelFinal } from "@/components/AppelFinal";
 import { JsonLd } from "@/components/JsonLd";
 import { personne } from "@/lib/jsonld";
-import { AppelFinal } from "@/components/AppelFinal";
-import { BarreAppelMobile } from "@/components/BarreAppelMobile";
 
 export const metadata: Metadata = {
   title: PAGE_EQUIPE.meta.titre,
@@ -15,25 +13,19 @@ export const metadata: Metadata = {
   alternates: { canonical: "/equipe" },
 };
 
-/** §10 — Le titre est « L'équipe ». Jamais « Les fondateurs », jamais « Notre histoire ». */
+/** Le titre est « L'équipe ». Jamais « Les fondateurs », jamais « Notre histoire ». */
 export default function PageEquipe() {
   return (
-    <>
-      <Fil elements={[{ nom: "L'équipe", chemin: "/equipe" }]} />
-
-      <Section filet={false}>
-        <TitreSection
-          niveau={1}
-          titre={PAGE_EQUIPE.titre}
-          chapo={PAGE_EQUIPE.chapo}
-        />
-        <GrilleEquipe />
-        <Certifications />
-      </Section>
-
+    <Page
+      titre={PAGE_EQUIPE.titre}
+      chapo={PAGE_EQUIPE.chapo}
+      fil={[{ nom: "L'équipe", chemin: "/equipe" }]}
+    >
+      <GrilleEquipe />
+      <MethodeEquipe />
+      <Certifications />
       <AppelFinal />
-      <BarreAppelMobile />
       <JsonLd data={personne()} />
-    </>
+    </Page>
   );
 }

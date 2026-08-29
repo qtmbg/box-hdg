@@ -1,15 +1,15 @@
 import { fr } from "@/lib/fr";
 
 /**
- * ⚠️ BLOQUANT — §12.
+ * ⚠️ BLOQUANT, §12.
  *
  * Les mentions légales sont obligatoires en France (art. 6-III de la LCEN du
  * 21 juin 2004 et art. R123-237 du code de commerce). Elles ne peuvent pas
  * être rédigées sans les informations ci-dessous.
  *
  * Tant que LEGAL_COMPLET est à false :
- *   — /mentions-legales est en noindex,
- *   — un avertissement de rédaction, impossible à manquer, coiffe la page.
+ *  , /mentions-legales est en noindex,
+ *  , un avertissement de rédaction, impossible à manquer, coiffe la page.
  * Le site ne doit pas être ouvert au public dans cet état.
  */
 export const LEGAL_COMPLET = false;
@@ -32,7 +32,7 @@ export const IDENTITE = {
 } as const;
 
 export const MENTIONS = fr({
-  meta: { titre: "Mentions légales — Box-HDG" },
+  meta: { titre: "Mentions légales · Box-HDG" },
   titre: "Mentions légales",
   avertissement:
     "Page non publiable en l'état. L'identité légale de l'éditeur reste à compléter dans content/legal.ts avant toute ouverture du site au public.",
@@ -56,7 +56,7 @@ export const MENTIONS = fr({
   hebergementTitre: "Hébergement",
   proprieteTitre: "Propriété intellectuelle",
   proprieteTexte:
-    "L'ensemble des contenus de ce site — textes, structure, mise en page, identité visuelle — est la propriété de l'éditeur, à l'exception des marques et logos de tiers qui restent la propriété de leurs détenteurs respectifs. Toute reproduction sans autorisation écrite est interdite.",
+    "L'ensemble des contenus de ce site, textes, structure, mise en page, identité visuelle, est la propriété de l'éditeur, à l'exception des marques et logos de tiers qui restent la propriété de leurs détenteurs respectifs. Toute reproduction sans autorisation écrite est interdite.",
   donneesTitre: "Données personnelles",
   donneesTexte:
     "Le traitement des données transmises par le formulaire de contact est décrit dans la politique de confidentialité.",
@@ -64,7 +64,7 @@ export const MENTIONS = fr({
 
 export const CONFIDENTIALITE = fr({
   meta: {
-    titre: "Politique de confidentialité — Box-HDG",
+    titre: "Politique de confidentialité · Box-HDG",
     description:
       "Données collectées par le formulaire de contact, finalité, durée de conservation et exercice de vos droits.",
   },
@@ -141,7 +141,7 @@ export const CONFIDENTIALITE = fr({
 
 export const CGV = fr({
   meta: {
-    titre: "Conditions générales de vente — Box-HDG",
+    titre: "Conditions générales de vente · Box-HDG",
     description:
       "Périmètre des formules, échéancier de paiement, engagement de délai, propriété du site et remise des fichiers.",
   },
@@ -188,7 +188,7 @@ export const CGV = fr({
     {
       titre: "6. Périmètre de la maintenance mensuelle",
       paragraphes: [
-        "L'abonnement mensuel couvre l'hébergement, le nom de domaine, le certificat de sécurité, les sauvegardes, les mises à jour techniques, les modifications de contenu illimitées — textes, horaires, photos, coordonnées, tarifs — et l'assistance par téléphone et par email avec une réponse sous vingt-quatre heures ouvrées.",
+        "L'abonnement mensuel couvre l'hébergement, le nom de domaine, le certificat de sécurité, les sauvegardes, les mises à jour techniques, les modifications de contenu illimitées, textes, horaires, photos, coordonnées, tarifs, et l'assistance par téléphone et par email avec une réponse sous vingt-quatre heures ouvrées.",
         "Ne sont pas comprises : la création de nouvelles pages, la refonte du design et l'ajout de fonctionnalités. Ces demandes sont chiffrées à part.",
       ],
     },

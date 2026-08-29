@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import { CONFIDENTIALITE } from "@/content/legal";
 import { SITE } from "@/content/site";
 import { UI } from "@/content/commun";
-import { PageTexte, BlocTexte } from "@/components/PageTexte";
+import { Page } from "@/components/Page";
+import { ContenuLegal, BlocTexte } from "@/components/PageTexte";
 
 export const metadata: Metadata = {
   title: CONFIDENTIALITE.meta.titre,
@@ -12,26 +13,29 @@ export const metadata: Metadata = {
 
 export default function PageConfidentialite() {
   return (
-    <PageTexte
+    <Page
       titre={CONFIDENTIALITE.titre}
-      chapo={CONFIDENTIALITE.chapo}
-      fil={{ nom: "Politique de confidentialité", chemin: "/confidentialite" }}
+      fil={[{ nom: "Politique de confidentialité", chemin: "/confidentialite" }]}
     >
-      {CONFIDENTIALITE.sections.map((s) => (
-        <BlocTexte
-          key={s.titre}
-          titre={s.titre}
-          paragraphes={s.paragraphes}
-          liste={s.liste}
-        />
-      ))}
-
-      <BlocTexte
-        titre={UI.nousContacter}
-        paragraphes={[
-          `Pour toute question ou pour exercer vos droits : ${SITE.email}, ou par téléphone au ${SITE.telephone.affichage}.`,
-        ]}
-      />
-    </PageTexte>
+      <ContenuLegal>
+        <p className="chapo mesure-large">{CONFIDENTIALITE.chapo}</p>
+        <div className="mt-8">
+          {CONFIDENTIALITE.sections.map((s) => (
+            <BlocTexte
+              key={s.titre}
+              titre={s.titre}
+              paragraphes={s.paragraphes}
+              liste={s.liste}
+            />
+          ))}
+          <BlocTexte
+            titre={UI.nousContacter}
+            paragraphes={[
+              `Pour toute question ou pour exercer vos droits : ${SITE.email}, ou par téléphone au ${SITE.telephone.affichage}.`,
+            ]}
+          />
+        </div>
+      </ContenuLegal>
+    </Page>
   );
 }

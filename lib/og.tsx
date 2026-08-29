@@ -4,7 +4,7 @@ import { ImageResponse } from "next/og";
 import { SITE } from "@/content/site";
 
 /**
- * §13 — Carte Open Graph, 1200 × 630, générée au build.
+ * §13. Carte Open Graph, 1200 × 630, générée au build.
  *
  * Logotype BOX-HDG sur encre, titre de page en Archivo, filet ambre. Rien
  * d'autre : aucune illustration à produire, aucune image à maintenir, et une
@@ -14,30 +14,30 @@ import { SITE } from "@/content/site";
 export const taille = { width: 1200, height: 630 };
 export const typeContenu = "image/png";
 
-let polices: { archivo: ArrayBuffer; inter: ArrayBuffer } | null = null;
+let polices: { serif: ArrayBuffer; grotesque: ArrayBuffer } | null = null;
 
 async function chargerPolices() {
   if (polices) return polices;
   const base = path.join(process.cwd(), "assets", "fonts");
-  const [archivo, inter] = await Promise.all([
-    readFile(path.join(base, "archivo-700.woff")),
-    readFile(path.join(base, "inter-500.woff")),
+  const [serif, grotesque] = await Promise.all([
+    readFile(path.join(base, "newsreader-400.woff")),
+    readFile(path.join(base, "schibsted-500.woff")),
   ]);
   polices = {
-    archivo: archivo.buffer.slice(
-      archivo.byteOffset,
-      archivo.byteOffset + archivo.byteLength,
+    serif: serif.buffer.slice(
+      serif.byteOffset,
+      serif.byteOffset + serif.byteLength,
     ) as ArrayBuffer,
-    inter: inter.buffer.slice(
-      inter.byteOffset,
-      inter.byteOffset + inter.byteLength,
+    grotesque: grotesque.buffer.slice(
+      grotesque.byteOffset,
+      grotesque.byteOffset + grotesque.byteLength,
     ) as ArrayBuffer,
   };
   return polices;
 }
 
 export async function carteOG(titre: string, surtitre?: string) {
-  const { archivo, inter } = await chargerPolices();
+  const { serif, grotesque } = await chargerPolices();
 
   return new ImageResponse(
     (
@@ -46,103 +46,92 @@ export async function carteOG(titre: string, surtitre?: string) {
           width: "100%",
           height: "100%",
           display: "flex",
-          flexDirection: "column",
-          justifyContent: "space-between",
-          backgroundColor: "#14202E",
-          padding: "72px 80px",
-          fontFamily: "Inter",
+          backgroundColor: "#F4EFE4",
+          padding: 20,
+          gap: 20,
+          fontFamily: "Schibsted",
         }}
       >
-        <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-          <span
-            style={{
-              fontFamily: "Archivo",
-              fontSize: 34,
-              letterSpacing: "-0.03em",
-              color: "#FFFFFF",
-              display: "flex",
-              alignItems: "center",
-            }}
-          >
-            BOX
+        {/* La colonne d'identité, comme sur le site. */}
+        <div
+          style={{
+            width: 300,
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "space-between",
+            backgroundColor: "#EEA749",
+            borderRadius: 26,
+            padding: 36,
+            color: "#13322D",
+          }}
+        >
+          <span style={{ fontSize: 24, fontWeight: 500, letterSpacing: "-0.02em" }}>
+            Box-HDG
           </span>
-          <span
-            style={{
-              width: 16,
-              height: 4,
-              marginBottom: 3,
-              backgroundColor: "#FFFFFF",
-              display: "flex",
-            }}
-          />
-          <span
-            style={{
-              fontFamily: "Archivo",
-              fontSize: 34,
-              letterSpacing: "-0.03em",
-              color: "#FFFFFF",
-              display: "flex",
-            }}
-          >
-            HDG
+          <span style={{ fontSize: 21, lineHeight: 1.35, display: "flex" }}>
+            {SITE.baseline}
           </span>
         </div>
 
-        <div style={{ display: "flex", flexDirection: "column" }}>
-          <div
-            style={{
-              width: 96,
-              height: 4,
-              backgroundColor: "#E8930C",
-              marginBottom: 36,
-              display: "flex",
-            }}
-          />
+        {/* Le bloc de titre. */}
+        <div
+          style={{
+            flex: 1,
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "space-between",
+            backgroundColor: "#FFFFFF",
+            borderRadius: 26,
+            padding: 56,
+          }}
+        >
           {surtitre ? (
             <div
               style={{
-                fontSize: 22,
-                letterSpacing: "0.09em",
+                fontSize: 20,
+                letterSpacing: "0.1em",
                 textTransform: "uppercase",
-                color: "rgba(255,255,255,0.62)",
-                marginBottom: 22,
+                color: "#C0431C",
+                fontWeight: 500,
                 display: "flex",
               }}
             >
               {surtitre}
             </div>
-          ) : null}
+          ) : (
+            <div style={{ display: "flex" }} />
+          )}
+
           <div
             style={{
-              fontFamily: "Archivo",
-              fontSize: titre.length > 58 ? 58 : 72,
-              lineHeight: 1.1,
-              letterSpacing: "-0.025em",
-              color: "#FFFFFF",
-              maxWidth: 1000,
+              fontFamily: "Newsreader",
+              fontSize: titre.length > 52 ? 60 : 74,
+              lineHeight: 1.06,
+              letterSpacing: "-0.018em",
+              color: "#13322D",
               display: "flex",
             }}
           >
             {titre}
           </div>
-        </div>
 
-        <div
-          style={{
-            fontSize: 24,
-            color: "rgba(255,255,255,0.62)",
-            display: "flex",
-          }}
-        >
-          {SITE.baseline}
+          <div
+            style={{
+              fontSize: 24,
+              color: "#4A605A",
+              display: "flex",
+            }}
+          >
+            {SITE.telephone.affichage}
+          </div>
         </div>
       </div>
     ),
     {
       ...taille,
       fonts: [
-        { name: "Archivo", data: archivo, weight: 700, style: "normal" },
-        { name: "Inter", data: inter, weight: 500, style: "normal" },
+        { name: "Newsreader", data: serif, weight: 400, style: "normal" },
+        { name: "Schibsted", data: grotesque, weight: 500, style: "normal" },
       ],
     },
   );

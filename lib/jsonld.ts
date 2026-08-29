@@ -102,7 +102,7 @@ export function filDAriane(elements: { nom: string; chemin: string }[]) {
 }
 
 /**
- * §13 — Fiche Person pour la page équipe.
+ * §13. Fiche Person pour la page équipe.
  *
  * `hasCredential` porte les attestations : celles qui ont une adresse publique
  * la déclarent, les autres sont décrites sans lien. On n'annonce jamais une

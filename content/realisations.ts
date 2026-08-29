@@ -14,7 +14,7 @@ export type Realisation = {
 };
 
 /**
- * §9 — Vide, volontairement.
+ * §9. Vide, volontairement.
  *
  * Le drapeau REALISATIONS_ENABLED (content/site.ts) reste à false tant que
  * cette liste est vide : le lien disparaît de la navigation et le teaser de
@@ -25,7 +25,7 @@ export const REALISATIONS: Realisation[] = [];
 
 export const PAGE_REALISATIONS = fr({
   meta: {
-    titre: "Réalisations — Box-HDG",
+    titre: "Réalisations · Box-HDG",
     description:
       "Les sites que nous avons construits pour des entreprises françaises.",
   },
@@ -35,7 +35,7 @@ export const PAGE_REALISATIONS = fr({
   filtres: { tout: "Tout", creation: "Création", refonte: "Refonte" },
   etiquettes: { creation: "Création", refonte: "Refonte" },
   delai: (jours: number) => `Livré en ${jours} jours`,
-  voirLeSite: "Voir le site →",
+  voirLeSite: "Voir le site",
   legendeFiltres: "Filtrer les réalisations",
 });
 

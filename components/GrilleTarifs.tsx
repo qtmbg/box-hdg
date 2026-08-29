@@ -6,24 +6,25 @@ import { SITE } from "@/content/site";
 import { parMois, eurosHT } from "@/lib/format";
 import { NBSP } from "@/lib/fr";
 import { Prix } from "./Prix";
+import { Bloc } from "./Bloc";
 
 type Cle = "essentiel" | "complete";
 
 /**
- * §6.3 — La grille de tarifs.
+ * La grille de tarifs.
  *
- * Le sélecteur de mode de paiement pilote les deux cartes à la fois, sans
- * JavaScript : deux boutons radio et `:has()`. Voir app/globals.css.
+ * Le sélecteur pilote les deux cartes en même temps, sans JavaScript : deux
+ * boutons radio et `:has()`. Voir app/globals.css.
  *
- * Les montants ne viennent que de content/pricing.ts. Aucun nombre n'est
- * écrit dans ce fichier.
+ * Les montants viennent tous de content/pricing.ts. Aucun nombre n'est écrit
+ * dans ce fichier.
  */
 export function GrilleTarifs({ condense = false }: { condense?: boolean }) {
   return (
     <div className="tarifs">
       <Selecteur />
 
-      <div className="mt-8 grid gap-5 md:mt-10 md:grid-cols-2 md:gap-6">
+      <div className="mt-6 grid gap-[var(--marge)] lg:grid-cols-2">
         {TARIFS.formules.map((formule) => (
           <CarteFormule
             key={formule.cle}
@@ -38,7 +39,7 @@ export function GrilleTarifs({ condense = false }: { condense?: boolean }) {
       </div>
 
       {condense ? (
-        <p className="mt-7">
+        <p className="mt-6">
           <Link href="/tarifs" className="lien">
             {ACTIONS.voirTousLesTarifs}
           </Link>
@@ -51,38 +52,19 @@ export function GrilleTarifs({ condense = false }: { condense?: boolean }) {
 function Selecteur() {
   const m = TARIFS.modes;
   return (
-    <div data-apparition>
+    <div>
       <fieldset className="selecteur">
         <legend className="lecteur-seul">{m.legende}</legend>
-        <input
-          type="radio"
-          name="mode-paiement"
-          id="mode-achat"
-          defaultChecked
-          aria-describedby="aide-achat"
-        />
+        <input type="radio" name="mode-paiement" id="mode-achat" defaultChecked aria-describedby="aide-achat" />
         <label htmlFor="mode-achat">{m.achat.libelle}</label>
-        <input
-          type="radio"
-          name="mode-paiement"
-          id="mode-abonnement"
-          aria-describedby="aide-abonnement"
-        />
+        <input type="radio" name="mode-paiement" id="mode-abonnement" aria-describedby="aide-abonnement" />
         <label htmlFor="mode-abonnement">{m.abonnement.libelle}</label>
       </fieldset>
 
-      <p
-        id="aide-achat"
-        data-mode="achat"
-        className="mt-3.5 text-base text-gris"
-      >
+      <p id="aide-achat" data-mode="achat" className="discret mt-3.5 text-[0.9375rem]">
         {m.achat.aide}
       </p>
-      <p
-        id="aide-abonnement"
-        data-mode="abonnement"
-        className="mt-3.5 text-base text-gris"
-      >
+      <p id="aide-abonnement" data-mode="abonnement" className="discret mt-3.5 text-[0.9375rem]">
         {m.abonnement.aide}
       </p>
     </div>
@@ -106,31 +88,23 @@ function CarteFormule({
 }) {
   const p = PRICING[cle];
   const l = TARIFS.labels;
+  const vedette = Boolean(marque);
 
   return (
     <article
-      className="carte flex flex-col p-6 md:p-8"
-      style={
-        marque
-          ? { borderColor: "var(--color-ambre)", borderWidth: "2px" }
-          : undefined
-      }
+      className={`bloc flex flex-col ${vedette ? "bloc-ardoise sur-ardoise" : ""}`}
       data-apparition
     >
-      <div className="flex items-start justify-between gap-4">
-        <h2 className="titre-3">{p.nom}</h2>
-        {marque ? <span className="etiquette etiquette-ambre">{marque}</span> : null}
+      <div className="flex flex-wrap items-start justify-between gap-3">
+        <h2 className="titre">{p.nom}</h2>
+        {marque ? <span className="jeton jeton-brique">{marque}</span> : null}
       </div>
 
-      <p className="mt-2 text-base text-gris">{accroche}</p>
+      <p className="mt-2 opacity-80">{accroche}</p>
 
-      <div className="mt-7 border-t border-filet pt-7">
+      <div className="mt-8">
         <div data-mode="achat">
-          <Prix
-            montant={p.achat.setup}
-            suffixe="HT"
-            note={`${l.puis} ${parMois(p.achat.mensuel)}`}
-          />
+          <Prix montant={p.achat.setup} suffixe="HT" note={`${l.puis} ${parMois(p.achat.mensuel)}`} />
         </div>
         <div data-mode="abonnement">
           <Prix
@@ -139,15 +113,13 @@ function CarteFormule({
             note={`${l.puis} ${parMois(p.abonnement.mensuel)} ${l.pendant}`}
           />
         </div>
-        <p className="mt-4 text-sm text-gris">{MENTION_HT}</p>
+        <p className="mt-4 text-[0.875rem] opacity-70">{MENTION_HT}</p>
       </div>
 
       {!condense ? (
-        <div className="mt-7 border-t border-filet pt-6">
-          {introInclus ? (
-            <p className="mb-2 text-base font-medium">{introInclus}</p>
-          ) : null}
-          <ul className="liste-coche">
+        <div className="mt-8">
+          {introInclus ? <p className="mb-2 font-medium">{introInclus}</p> : null}
+          <ul className="liste-points text-[0.9375rem]">
             {inclus.map((ligne) => (
               <li key={ligne}>{ligne}</li>
             ))}
@@ -155,11 +127,8 @@ function CarteFormule({
         </div>
       ) : null}
 
-      <div className="mt-8 pt-1 md:mt-auto">
-        <a
-          href={SITE.telephone.lien}
-          className="bouton bouton-principal w-full"
-        >
+      <div className="mt-8 lg:mt-auto lg:pt-8">
+        <a href={SITE.telephone.lien} className="pilule pilule-pleine w-full">
           {ACTIONS.appelerPourDemarrer}
         </a>
       </div>
@@ -167,48 +136,50 @@ function CarteFormule({
   );
 }
 
-/** §6.4 — Le périmètre borné de l'abonnement. Ne pas retirer. */
+/** Le périmètre borné de l'abonnement. À conserver. */
 export function PerimetreAbonnement() {
   return (
-    <div className="encadre mt-10 md:mt-12" data-apparition>
-      <h3 className="titre-3">{TARIFS.abonnement.titre}</h3>
-      <ul className="liste-coche mt-4 max-w-[46rem]">
+    <Bloc teinte="sable">
+      <h2 className="titre mesure">{TARIFS.abonnement.titre}</h2>
+      <ul className="liste-points mt-6 mesure-large">
         {TARIFS.abonnement.inclus.map((l) => (
           <li key={l}>{l}</li>
         ))}
       </ul>
-      <p className="mt-5 max-w-[46rem] border-t border-filet pt-5 text-base text-gris">
+      <p className="discret mt-6 mesure-large text-[0.9375rem]">
         {TARIFS.abonnement.limite}
       </p>
-    </div>
+    </Bloc>
   );
 }
 
-/** §6.5 — Options mensuelles. */
+/** Options mensuelles. */
 export function Options() {
   return (
-    <div>
-      <h2 className="titre-2" data-apparition>
-        {TARIFS.options.titre}
-      </h2>
-      <ul className="mt-8 grid gap-5 md:grid-cols-3 md:gap-6">
-        {TARIFS.options.liste.map((o) => {
-          const montant =
-            PRICING.options[o.cle as keyof typeof PRICING.options].mensuel;
+    <div className="pile">
+      <Bloc teinte="craie">
+        <h2 className="titre">{TARIFS.options.titre}</h2>
+      </Bloc>
+      <ul className="trio">
+        {TARIFS.options.liste.map((o, i) => {
+          const montant = PRICING.options[o.cle as keyof typeof PRICING.options].mensuel;
           return (
-            <li key={o.cle} className="carte flex flex-col p-5" data-apparition>
-              <h3 className="text-[1.0625rem] font-semibold leading-snug tracking-[-0.012em]">
-                {o.titre}
-              </h3>
+            <li
+              key={o.cle}
+              className={`bloc flex flex-col ${i === 1 ? "bloc-argile" : ""}`}
+              data-apparition
+            >
+              <h3 className="sous-titre">{o.titre}</h3>
               {o.precision ? (
-                <p className="mt-1.5 text-base text-gris">{o.precision}</p>
+                <p className="discret mt-2 text-[0.9375rem]">{o.precision}</p>
               ) : null}
               <p
                 data-prix
-                className="mt-auto pt-5 text-[1.375rem] font-semibold leading-none"
+                className="mt-auto pt-8 text-[1.75rem] leading-none"
+                style={{ fontFamily: "var(--font-titre)", fontWeight: 380 }}
               >
                 {eurosHT(montant)}
-                <span className="text-base font-medium text-gris">
+                <span className="text-[0.9375rem] opacity-70" style={{ fontFamily: "var(--font-texte)" }}>
                   {NBSP}/ mois
                 </span>
               </p>
@@ -216,19 +187,17 @@ export function Options() {
           );
         })}
       </ul>
-      <p className="mt-5 text-sm text-gris">{MENTION_HT}</p>
+      <p className="discret px-6 text-[0.875rem]">{MENTION_HT}</p>
     </div>
   );
 }
 
-/** §6.6 — Dire non par écrit. Filtre les appels autant qu'il rassure. */
+/** Dire non par écrit. Filtre les appels autant qu'il rassure. */
 export function CeQuOnNeFaitPas() {
   return (
-    <div className="encadre" data-apparition>
-      <h3 className="titre-3">{TARIFS.refus.titre}</h3>
-      <p className="mt-3 max-w-[46rem] text-base text-gris">
-        {TARIFS.refus.texte}
-      </p>
-    </div>
+    <Bloc teinte="ocre">
+      <h2 className="titre mesure">{TARIFS.refus.titre}</h2>
+      <p className="mt-4 mesure-large">{TARIFS.refus.texte}</p>
+    </Bloc>
   );
 }

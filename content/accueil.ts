@@ -3,33 +3,33 @@ import { fr } from "@/lib/fr";
 export const ACCUEIL = fr({
   meta: {
     titre:
-      "Box-HDG — Création de site internet pour entreprises | Livré en une semaine",
+      "Box-HDG, création de site internet pour entreprises. Livré en une semaine",
     description:
       "Site vitrine professionnel à partir de 890 € HT, en ligne en 5 jours ouvrés. Pour les entreprises qui n'ont pas de site ou dont le site est dépassé.",
   },
 
   hero: {
-    sourcil: "Agence web — France",
+    sourcil: "Agence web en France",
     titre: "Votre site en ligne en une semaine.",
     chapo:
       "Vous avez déjà une activité, des clients et une fiche Google. Il vous manque un site. On le construit à partir de ce que vous avez déjà et on le met en ligne en cinq jours ouvrés.",
     prix: "À partir de 890 € HT. Le site vous appartient.",
   },
 
-  /** §5.1 — module avant / après. Aucune donnée client : entreprise d'exemple. */
+  /** §5.1. module avant / après. Aucune donnée client : entreprise d'exemple. */
   avantApres: {
     etiquette: "Exemple",
     avant: "Avant",
     apres: "Après",
     connecteur: "5 jours",
-    lienGrise: "Site web →",
+    lienGrise: "Site web",
     fiche: {
       nom: "Menuiserie Delorme",
       note: "4,8",
       avis: "62 avis",
       categorie: "Menuisier · Vitrolles",
       horaireJour: "Aujourd'hui",
-      horaire: "8 h – 18 h",
+      horaire: "8 h à 18 h",
       adresse: "14 rue des Cèdres, 13127 Vitrolles",
       telephone: "04 42 00 00 00",
     },
@@ -44,7 +44,7 @@ export const ACCUEIL = fr({
     },
   },
 
-  /** §5.2 — bandeau chiffres. Les valeurs viennent de PRICING. */
+  /** §5.2. bandeau chiffres. Les valeurs viennent de PRICING. */
   bandeau: [
     { legende: "délai de livraison moyen" },
     { legende: "prix de départ, HT" },
@@ -74,7 +74,7 @@ export const ACCUEIL = fr({
     },
   ],
 
-  /** §5.6 — module signature. */
+  /** §5.6. module signature. */
   comparaison: {
     titre: "Ce que coûte un site vitrine en France",
     chapo:

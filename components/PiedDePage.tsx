@@ -3,6 +3,7 @@ import { SITE, REALISATIONS_ENABLED } from "@/content/site";
 import { PIED, UI } from "@/content/commun";
 import { Logotype } from "./Logotype";
 
+/** Dernier bloc de la pile. */
 export function PiedDePage() {
   const annee = new Date().getFullYear();
   const agence = PIED.colonnes.agence.liens.filter(
@@ -10,35 +11,32 @@ export function PiedDePage() {
   );
 
   return (
-    <footer className="sur-encre">
-      <div className="contenu grid gap-10 py-14 md:grid-cols-4 md:gap-8 md:py-16">
+    <footer className="bloc bloc-ardoise" data-apparition>
+      <div className="grid gap-9 md:grid-cols-2 lg:grid-cols-4 lg:gap-6">
         <div>
-          <Logotype ton="papier" />
-          <p className="secondaire mt-4 max-w-[16rem] text-base">
+          <Logotype ton="craie" />
+          <p className="discret mt-3 max-w-[15rem] text-[0.9375rem]">
             {SITE.baseline}
           </p>
         </div>
 
-        <ColonnePied
-          titre={PIED.colonnes.offres.titre}
-          liens={PIED.colonnes.offres.liens}
-        />
-        <ColonnePied titre={PIED.colonnes.agence.titre} liens={agence} />
+        <Colonne titre={PIED.colonnes.offres.titre} liens={PIED.colonnes.offres.liens} />
+        <Colonne titre={PIED.colonnes.agence.titre} liens={agence} />
 
         <div>
-          <TitreColonne>{PIED.colonnes.contact.titre}</TitreColonne>
-          <ul className="space-y-2.5 text-base">
+          <h2 className="etiquette opacity-60">{PIED.colonnes.contact.titre}</h2>
+          <ul className="mt-4 space-y-2 text-[0.9375rem]">
             <li>
-              <a href={SITE.telephone.lien} className="chiffre lien inline-block py-1">
+              <a href={SITE.telephone.lien} className="chiffre lien">
                 {SITE.telephone.affichage}
               </a>
             </li>
             <li>
-              <a href={`mailto:${SITE.email}`} className="lien inline-block py-1">
+              <a href={`mailto:${SITE.email}`} className="lien">
                 {SITE.email}
               </a>
             </li>
-            <li className="secondaire pt-1.5 leading-relaxed">
+            <li className="discret pt-2 leading-relaxed">
               {SITE.adresse.ligne1}
               <br />
               <span className="chiffre">{SITE.adresse.codePostal}</span>{" "}
@@ -48,39 +46,25 @@ export function PiedDePage() {
         </div>
       </div>
 
-      <div className="border-t border-white/12">
-        <div className="contenu flex flex-col gap-4 py-6 text-sm md:flex-row md:items-center md:justify-between">
-          <p className="secondaire">
-            © <span className="chiffre">{annee}</span> {SITE.nom}.{" "}
-            {UI.droitsReserves}
-          </p>
-          <ul className="flex flex-wrap gap-x-6 gap-y-2">
-            {PIED.legal.map((e) => (
-              <li key={e.href}>
-                <Link
-                  href={e.href}
-                  className="inline-block py-1 text-white/72 underline decoration-white/25 underline-offset-4 hover:decoration-ambre"
-                >
-                  {e.libelle}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
+      <div className="mt-10 flex flex-col gap-4 border-t border-craie/15 pt-6 text-[0.875rem] md:flex-row md:items-center md:justify-between">
+        <p className="discret">
+          © <span className="chiffre">{annee}</span> {SITE.nom}. {UI.droitsReserves}
+        </p>
+        <ul className="flex flex-wrap gap-x-5 gap-y-2">
+          {PIED.legal.map((e) => (
+            <li key={e.href}>
+              <Link href={e.href} className="discret inline-block py-1 hover:text-craie">
+                {e.libelle}
+              </Link>
+            </li>
+          ))}
+        </ul>
       </div>
     </footer>
   );
 }
 
-function TitreColonne({ children }: { children: React.ReactNode }) {
-  return (
-    <h2 className="mb-4 text-xs font-semibold uppercase tracking-[0.09em] text-white/60">
-      {children}
-    </h2>
-  );
-}
-
-function ColonnePied({
+function Colonne({
   titre,
   liens,
 }: {
@@ -89,14 +73,11 @@ function ColonnePied({
 }) {
   return (
     <div>
-      <TitreColonne>{titre}</TitreColonne>
-      <ul className="space-y-2.5 text-base">
+      <h2 className="etiquette opacity-60">{titre}</h2>
+      <ul className="mt-4 space-y-2 text-[0.9375rem]">
         {liens.map((l) => (
           <li key={l.href}>
-            <Link
-              href={l.href}
-              className="inline-block py-1 underline decoration-white/25 underline-offset-4 transition-colors hover:decoration-ambre"
-            >
+            <Link href={l.href} className="inline-block py-1 hover:text-ocre">
               {l.libelle}
             </Link>
           </li>

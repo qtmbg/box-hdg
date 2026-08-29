@@ -70,10 +70,10 @@ async function transmettre(valeurs: Partial<Record<Champ, string>>) {
     `Téléphone : ${valeurs.telephone}`,
     `Email : ${valeurs.email}`,
     `Site existant : ${valeurs.siteExistant || "non précisé"}`,
-    `Adresse indiquée : ${valeurs.adresseSite || "—"}`,
+    `Adresse indiquée : ${valeurs.adresseSite || "non renseignée"}`,
     "",
     "Message :",
-    valeurs.message || "—",
+    valeurs.message || "aucun message",
   ].join("\n");
 
   if (!cle || !expediteur) {
@@ -91,7 +91,7 @@ async function transmettre(valeurs: Partial<Record<Champ, string>>) {
     from: expediteur,
     to: destinataire,
     replyTo: valeurs.email,
-    subject: `Demande site — ${valeurs.entreprise}`,
+    subject: `Demande de site : ${valeurs.entreprise}`,
     text: corps,
   });
 

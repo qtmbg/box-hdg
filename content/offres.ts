@@ -4,7 +4,7 @@ export const CREATION = fr({
   slug: "creation-site-internet",
   fil: "Création de site internet",
   meta: {
-    titre: "Création de site internet pour entreprise — Box-HDG",
+    titre: "Création de site internet pour entreprise · Box-HDG",
     description:
       "Vous avez une activité et une fiche Google mais pas de site. On le construit à partir de vos informations existantes, en ligne en cinq jours, à partir de 890 € HT.",
   },
@@ -39,7 +39,7 @@ export const REFONTE = fr({
   slug: "refonte-site-internet",
   fil: "Refonte de site internet",
   meta: {
-    titre: "Refonte de site internet — Box-HDG",
+    titre: "Refonte de site internet · Box-HDG",
     description:
       "Votre site est lent, illisible sur téléphone ou impossible à modifier. On le remplace au prix d'un site neuf, en cinq jours, sans perdre votre référencement.",
   },
@@ -73,13 +73,13 @@ export const REFONTE = fr({
 /**
  * Page d'index des offres.
  *
- * La §4.1 place « Offres → /offres » dans la navigation sans décrire la page.
+ * La §4.1 place « Offres, vers /offres » dans la navigation sans décrire la page.
  * Un lien de navigation sans destination est un défaut : la page existe donc,
  * et se contente d'orienter vers les deux offres réelles.
  */
 export const INDEX_OFFRES = fr({
   meta: {
-    titre: "Offres — Box-HDG",
+    titre: "Offres · Box-HDG",
     description:
       "Deux situations, une méthode : création d'un premier site ou remplacement d'un site dépassé. Livré en cinq jours ouvrés.",
   },
